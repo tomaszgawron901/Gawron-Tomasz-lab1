@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="start">Start</button>
+    <button id="play">Play</button>
+    <audio src="sounds/boom.wav" controls id='boom' ></audio>
+    <audio src="sounds/clap.wav" controls id='clap'></audio>
+    <audio src="sounds/hihat.wav" controls id='hihat'></audio>
+    <audio src="sounds/openhat.wav" controls id='openhat'></audio>
+    <audio src="sounds/ride.wav" controls id='ride'></audio>
+    <audio src="sounds/kick.wav" controls id='kick'></audio>
+    <script type="text/javascript">
+    const boomSound = document.querySelector('#boom')
+    const clapSound = document.querySelector('#clap')
+    const kickSound = document.querySelector('#kick')
+    const chanel1 = []
+    let time_0 = 0
+    document.body.addEventListener('keypress', playAudio)
+    document.body.addEventListener('click', function(){time_0 = Date.now()})
+    document.body.addEventListener('click', playAll)
+    
+    function playAll()
+    {
+        chanel1.forEach(element => {
+            setTimeout(playS, element.time, element.code)
+        });
+
+    }
+
+    function playS(code)
+    {
+        switch (code){
+                case 'KeyC':
+                    clapSound.currentTime = 0
+                    clapSound.play()
+                    break
+                case 'KeyK':
+                    kickSound.currentTime = 0
+                    kickSound.play()
+                    break
+                case 'KeyB':
+                    boomSound.currentTime = 0
+                    boomSound.play()
+                    break
+        }
+    }
+    
+
+
+    function playAudio(e){
+        if (time_0 != 0){
+            playS(e.code)
+            switch (e.code){
+                case 'KeyC':
+                    chanel1.push({
+                        code: e.code,
+                        time: Date.now()-time_0
+                    })
+                    break
+                case 'KeyK':
+                    chanel1.push({
+                        code: e.code,
+                        time: Date.now()-time_0
+                    })
+                    break
+                case 'KeyB':
+                    chanel1.push({
+                        code: e.code,
+                        time: Date.now()-time_0
+                    })
+                    break
+            }            
+        }
+    }
+
+
+    </script>
+</body>
+</html>
