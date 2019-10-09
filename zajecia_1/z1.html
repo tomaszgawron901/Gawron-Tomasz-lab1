@@ -19,11 +19,12 @@
     const boomSound = document.querySelector('#boom')
     const clapSound = document.querySelector('#clap')
     const kickSound = document.querySelector('#kick')
-    const chanel1 = []
+    let chanel1 = []
     let time_0 = 0
     document.body.addEventListener('keypress', playAudio)
-    document.body.addEventListener('click', function(){time_0 = Date.now()})
-    document.body.addEventListener('click', playAll)
+    document.getElementById('start').addEventListener('click', function(){time_0 = Date.now()
+                                                                            chanel1 = [] })
+    document.getElementById('play').addEventListener('click', playAll)
     
     function playAll()
     {
@@ -54,8 +55,8 @@
 
 
     function playAudio(e){
+        playS(e.code)
         if (time_0 != 0){
-            playS(e.code)
             switch (e.code){
                 case 'KeyC':
                     chanel1.push({
