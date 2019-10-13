@@ -5,82 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
-    <button id="start">Start</button>
-    <button id="play">Play</button>
-    <audio src="sounds/boom.wav" controls id='boom' ></audio>
-    <audio src="sounds/clap.wav" controls id='clap'></audio>
-    <audio src="sounds/hihat.wav" controls id='hihat'></audio>
-    <audio src="sounds/openhat.wav" controls id='openhat'></audio>
-    <audio src="sounds/ride.wav" controls id='ride'></audio>
-    <audio src="sounds/kick.wav" controls id='kick'></audio>
-    <script type="text/javascript">
-    const boomSound = document.querySelector('#boom')
-    const clapSound = document.querySelector('#clap')
-    const kickSound = document.querySelector('#kick')
-    let chanel1 = []
-    let time_0 = 0
-    document.body.addEventListener('keypress', playAudio)
-    document.getElementById('start').addEventListener('click', function(){time_0 = Date.now()
-                                                                            chanel1 = [] })
-    document.getElementById('play').addEventListener('click', playAll)
-    
-    function playAll()
-    {
-        chanel1.forEach(element => {
-            setTimeout(playS, element.time, element.code)
-        });
+    <div id="container">
+        <div id="top">
+                <button id="playAll">Play All</button> 
+        </div>
+        <div class="channel">
+            <button id="record" >record</button>
+            <button id="play" >play</button>
+            <input type="range" min="0" max="100" value="0" class="slider" id="myRange" style="width: 100%;">
+            <button id="repeat" >repeat</button>
+            <button id="delete" >delete</button>
+        </div>
+        
+        <audio src="sounds/boom.wav" controls id='boom' ></audio>
+        <audio src="sounds/clap.wav" controls id='clap'></audio>
+        <audio src="sounds/hihat.wav" controls id='hihat'></audio>
+        <audio src="sounds/openhat.wav" controls id='openhat'></audio>
+        <audio src="sounds/ride.wav" controls id='ride'></audio>
+        <audio src="sounds/kick.wav" controls id='kick'></audio>
+    </div>
 
-    }
-
-    function playS(code)
-    {
-        switch (code){
-                case 'KeyC':
-                    clapSound.currentTime = 0
-                    clapSound.play()
-                    break
-                case 'KeyK':
-                    kickSound.currentTime = 0
-                    kickSound.play()
-                    break
-                case 'KeyB':
-                    boomSound.currentTime = 0
-                    boomSound.play()
-                    break
-        }
-    }
-    
-
-
-    function playAudio(e){
-        playS(e.code)
-        if (time_0 != 0){
-            switch (e.code){
-                case 'KeyC':
-                    chanel1.push({
-                        code: e.code,
-                        time: Date.now()-time_0
-                    })
-                    break
-                case 'KeyK':
-                    chanel1.push({
-                        code: e.code,
-                        time: Date.now()-time_0
-                    })
-                    break
-                case 'KeyB':
-                    chanel1.push({
-                        code: e.code,
-                        time: Date.now()-time_0
-                    })
-                    break
-            }            
-        }
-    }
-
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
