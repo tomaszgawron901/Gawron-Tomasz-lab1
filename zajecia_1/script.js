@@ -6,20 +6,26 @@ class Channel
         this.soundPath = []
 
         this.recordBtn = document.createElement("BUTTON")
+        this.recordBtn.prot = this
         this.recordBtn.innerHTML="record"
+        this.recordBtn.onclick = this.record
 
         this.playBtn = document.createElement("BUTTON")
+        this.playBtn.prot = this
         this.playBtn.innerHTML="play"
-        this.playBtn.addEventListener('click', playAll)
+        this.playBtn.onclick = this.play
 
         this.repeatBtn = document.createElement("BUTTON")
+        this.repeatBtn.prot = this
         this.repeatBtn.innerHTML = "repeat"
 
         this.deleteBtn = document.createElement("BUTTON")
+        this.deleteBtn.prot = this
         this.deleteBtn.innerHTML = "delete"
 
         //<input type="range" min="0" max="100" value="0" class="slider" id="myRange" style="width: 100%;">
         this.slider = document.createElement("INPUT")
+        this.slider.prot = this
         this.slider.setAttribute("type", "range")
         this.slider.setAttribute("min", "0")
         this.slider.setAttribute("max", "100")
@@ -37,45 +43,43 @@ class Channel
     }
 
     record(){
-        if(this == null)
+        if(isRecording == null)
         {
-            isRecording = this
-            this.time0 = Data.now()
-            this.soundPath = []
+            isRecording = this.prot
+            this.innerHTML = "recording!!!!"
+            isRecording.time0 = Date.now()
+            isRecording.soundPath = []
         }
-        else if(this == isRecording) {
-            this.soundPath.push.push({
+        else if(this.prot == isRecording) {
+            isRecording.soundPath.push({
                 code: '',
                 time: Date.now()-this.time0
             })
+            this.innerHTML = "record"
+            isRecording = null
+        }
     }
 
-    stickTo() {
+    play(){
+        this.prot.soundPath.forEach(element => {
+            setTimeout(playS, element.time, element.code)
+        });
+        
+    }
+
+    stickTo(){
         document.getElementById("container").appendChild(this.chnl)
     }
 
 }
 
-const sadasd= new Channel()
-sadasd.stickTo()
+new Channel().stickTo()
+new Channel().stickTo()
 const boomSound = document.querySelector('#boom')
 const clapSound = document.querySelector('#clap')
 const kickSound = document.querySelector('#kick')
-let chanel1 = []
-let time_0 = 0
-document.body.addEventListener('keypress', playAudio)
-document.getElementById('record').addEventListener('click', function(){time_0 = Date.now()
-                                                                        chanel1 = [] })
+document.body.addEventListener('keypress', playRecord)
 document.getElementById('playAll').addEventListener('click', playAll)
-document.getElementById('play').addEventListener('click', playAll)
-
-function playAll()
-{
-    chanel1.forEach(element => {
-        setTimeout(playS, element.time, element.code)
-    });
-
-}
 
 function playS(code)
 {
@@ -97,12 +101,12 @@ function playS(code)
 
 
 
-function playAudio(e){
+function playRecord(e){
     playS(e.code)
     if (isRecording != null){
         switch (e.code){
             case 'KeyC':
-                isRecording.soundPath.push.push({
+                isRecording.soundPath.push({
                     code: e.code,
                     time: Date.now()-isRecording.time0
                 })

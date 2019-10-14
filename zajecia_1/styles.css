@@ -12,12 +12,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: white dotted 2px;
 }
 
 .channel{
     display: flex;
     flex-direction: row;
+    margin: 15px;
+    border: white solid 1px;
+    background-color: rgb(53, 53, 53);
+    
 }
 
 .channel button{
