@@ -8,12 +8,22 @@ class Channel
 
         this.recordBtn = document.createElement("BUTTON")
         this.recordBtn.prot = this
-        this.recordBtn.innerHTML="record"
+        this.record_OffIcon = new Image(60, 60)
+        this.record_OffIcon.src = "icons/record_OFF.png"
+        this.record_ONIcon = new Image(60, 60)
+        this.record_ONIcon.src = "icons/record_ON.png"
+        this.recordBtn.appendChild(this.record_OffIcon)
         this.recordBtn.onclick = function(){this.prot.record()}
+
+
 
         this.playBtn = document.createElement("BUTTON")
         this.playBtn.prot = this
-        this.playBtn.innerHTML="play"
+        this.playIcon = new Image(60, 60)
+        this.playIcon.src = "icons/play.png"
+        this.returnIcon = new Image(60, 60)
+        this.returnIcon.src = "icons/return.png"
+        this.playBtn.appendChild(this.playIcon)
         this.playBtn.onclick = function(){this.prot.play()}
 
         this.repeatBtn = document.createElement("BUTTON")
@@ -48,7 +58,8 @@ class Channel
         if(isRecording == null)
         {
             isRecording = this
-            this.recordBtn.innerHTML = "recording!!!!"
+            this.recordBtn.innerHTML = ""
+            this.recordBtn.appendChild(this.record_ONIcon)
             isRecording.time0 = Date.now()
             isRecording.soundPath = []
         }
@@ -57,7 +68,8 @@ class Channel
                 code: '',
                 time: Date.now()-isRecording.time0
             })
-            this.recordBtn.innerHTML = "record"
+            this.recordBtn.innerHTML = ""
+            this.recordBtn.appendChild(this.record_OffIcon)
             isRecording = null
         }
     }
@@ -79,8 +91,14 @@ class Channel
                         clearInterval(a.sliderInterval)
                     }
                 }, t/100, this)
+                this.playBtn.innerHTML="";
+                this.playBtn.appendChild(this.returnIcon)
 
-                this.endOfPlaying = setTimeout(function(a){a.isPlaying = []}, t, this)
+                this.endOfPlaying = setTimeout(function(a){
+                    a.isPlaying = []
+                    a.playBtn.innerHTML=""
+                    a.playBtn.appendChild(a.playIcon)
+                }, t, this)
             }
             else{
                 this.stopPlaying()
@@ -96,6 +114,8 @@ class Channel
         this.isPlaying = []
         clearInterval(this.sliderInterval)
         this.slider.value = 0
+        this.playBtn.innerHTML="";
+        this.playBtn.appendChild(this.playIcon)
     }
 
     stickTo(){
@@ -107,6 +127,10 @@ class Channel
 new Channel().stickTo()
 new Channel().stickTo()
 new Channel().stickTo()
+
+
+
+
 const boomSound = document.querySelector('#boom')
 const clapSound = document.querySelector('#clap')
 const kickSound = document.querySelector('#kick')
