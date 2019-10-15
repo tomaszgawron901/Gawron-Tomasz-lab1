@@ -4,16 +4,17 @@ class Channel
 {
     constructor(){
         this.soundPath = []
+        this.isPlaying = []
 
         this.recordBtn = document.createElement("BUTTON")
         this.recordBtn.prot = this
         this.recordBtn.innerHTML="record"
-        this.recordBtn.onclick = this.record
+        this.recordBtn.onclick = function(){this.prot.record()}
 
         this.playBtn = document.createElement("BUTTON")
         this.playBtn.prot = this
         this.playBtn.innerHTML="play"
-        this.playBtn.onclick = this.play
+        this.playBtn.onclick = function(){this.prot.play()}
 
         this.repeatBtn = document.createElement("BUTTON")
         this.repeatBtn.prot = this
@@ -31,6 +32,7 @@ class Channel
         this.slider.setAttribute("max", "100")
         this.slider.setAttribute("value", "0")
         this.slider.setAttribute("style", "width: 100%;")
+        this.slider.setAttribute("disabled", "disabled")
         
 
         this.chnl = document.createElement("DIV")
@@ -45,26 +47,55 @@ class Channel
     record(){
         if(isRecording == null)
         {
-            isRecording = this.prot
-            this.innerHTML = "recording!!!!"
+            isRecording = this
+            this.recordBtn.innerHTML = "recording!!!!"
             isRecording.time0 = Date.now()
             isRecording.soundPath = []
         }
-        else if(this.prot == isRecording) {
+        else if(this == isRecording) {
             isRecording.soundPath.push({
                 code: '',
-                time: Date.now()-this.time0
+                time: Date.now()-isRecording.time0
             })
-            this.innerHTML = "record"
+            this.recordBtn.innerHTML = "record"
             isRecording = null
         }
     }
 
     play(){
-        this.prot.soundPath.forEach(element => {
-            setTimeout(playS, element.time, element.code)
+        if(this.soundPath.length != 0)
+        {
+            if(this.isPlaying.length == 0)
+            {
+                this.soundPath.forEach(element => {
+                    this.isPlaying.push(setTimeout(playS, element.time, element.code))
+                });
+                const t = this.soundPath[this.soundPath.length-1].time
+                this.sliderInterval = setInterval(function(a){
+                    a.slider.value = parseInt(a.slider.value)+1
+                    if(parseInt(a.slider.value)>=parseInt(a.slider.max))
+                    {
+                        a.slider.value = 0
+                        clearInterval(a.sliderInterval)
+                    }
+                }, t/100, this)
+
+                this.endOfPlaying = setTimeout(function(a){a.isPlaying = []}, t, this)
+            }
+            else{
+                this.stopPlaying()
+            }            
+        }
+    }
+
+    stopPlaying(){
+        this.isPlaying.forEach(element => {
+            clearTimeout(element)
         });
-        
+        clearTimeout(this.endOfPlaying)
+        this.isPlaying = []
+        clearInterval(this.sliderInterval)
+        this.slider.value = 0
     }
 
     stickTo(){
@@ -73,6 +104,7 @@ class Channel
 
 }
 
+new Channel().stickTo()
 new Channel().stickTo()
 new Channel().stickTo()
 const boomSound = document.querySelector('#boom')
