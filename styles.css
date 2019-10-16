@@ -5,6 +5,11 @@
     border: white dotted 3px;
 }
 
+#newChannelBtn{
+    display: flex;
+    margin: 15px;
+}
+
 #top{
     min-width: 80px;
     min-height: 80px;

@@ -4,7 +4,9 @@ class Channel
 {
     constructor(){
         this.soundPath = []
-        this.isPlaying = []
+        this.currentlyPlaying = []
+        this.isPlaying = false
+        this.isRepeating = false
 
         this.recordBtn = document.createElement("BUTTON")
         this.recordBtn.prot = this
@@ -28,7 +30,12 @@ class Channel
 
         this.repeatBtn = document.createElement("BUTTON")
         this.repeatBtn.prot = this
-        this.repeatBtn.innerHTML = "repeat"
+        this.repeat_OffIcon = new Image(60, 60)
+        this.repeat_OffIcon.src = "icons/repeat_OFF.png"
+        this.repeat_ONIcon = new Image(60, 60)
+        this.repeat_ONIcon.src = "icons/repeat_ON.png"
+        this.repeatBtn.appendChild(this.repeat_OffIcon)
+        this.repeatBtn.onclick = function(){this.prot.repeat()}
 
         this.deleteBtn = document.createElement("BUTTON")
         this.deleteBtn.prot = this
@@ -55,74 +62,110 @@ class Channel
     }
 
     record(){
-        if(isRecording == null)
+        if(!this.isPlaying)
         {
-            isRecording = this
-            this.recordBtn.innerHTML = ""
-            this.recordBtn.appendChild(this.record_ONIcon)
-            isRecording.time0 = Date.now()
-            isRecording.soundPath = []
+            if(isRecording == null)
+            {
+                isRecording = this
+                this.recordBtn.innerHTML = ""
+                this.recordBtn.appendChild(this.record_ONIcon)
+                isRecording.time0 = Date.now()
+                isRecording.soundPath = []
+            }
+            else if(this == isRecording) {
+                isRecording.soundPath.push({
+                    code: '',
+                    time: Date.now()-isRecording.time0
+                })
+                this.recordBtn.innerHTML = ""
+                this.recordBtn.appendChild(this.record_OffIcon)
+                isRecording = null
+            }
         }
-        else if(this == isRecording) {
-            isRecording.soundPath.push({
-                code: '',
-                time: Date.now()-isRecording.time0
-            })
-            this.recordBtn.innerHTML = ""
-            this.recordBtn.appendChild(this.record_OffIcon)
-            isRecording = null
-        }
+
     }
 
     play(){
-        if(this.soundPath.length != 0)
+        if(this.soundPath.length != 0 && isRecording!=this)
         {
-            if(this.isPlaying.length == 0)
+            if(this.isPlaying)
             {
-                this.soundPath.forEach(element => {
-                    this.isPlaying.push(setTimeout(playS, element.time, element.code))
-                });
-                const t = this.soundPath[this.soundPath.length-1].time
-                this.sliderInterval = setInterval(function(a){
-                    a.slider.value = parseInt(a.slider.value)+1
-                    if(parseInt(a.slider.value)>=parseInt(a.slider.max))
-                    {
-                        a.slider.value = 0
-                        clearInterval(a.sliderInterval)
-                    }
-                }, t/100, this)
-                this.playBtn.innerHTML="";
-                this.playBtn.appendChild(this.returnIcon)
+                this.stopPlaying()
+                this.isPlaying = false
 
-                this.endOfPlaying = setTimeout(function(a){
-                    a.isPlaying = []
-                    a.playBtn.innerHTML=""
-                    a.playBtn.appendChild(a.playIcon)
-                }, t, this)
             }
             else{
-                this.stopPlaying()
+                this.startPlaying()
+                this.isPlaying = true
             }            
         }
     }
 
+    startPlaying()
+    {
+        this.soundPath.forEach(element => {
+            this.currentlyPlaying.push(setTimeout(playS, element.time, element.code))
+        });
+        const t = this.soundPath[this.soundPath.length-1].time
+        this.sliderInterval = setInterval(function(a){
+            a.slider.value = parseInt(a.slider.value)+1
+            if(parseInt(a.slider.value)>=parseInt(a.slider.max))
+            {
+                a.slider.value = 0
+                clearInterval(a.sliderInterval)
+            }
+        }, t/100, this)
+        this.playBtn.innerHTML="";
+        this.playBtn.appendChild(this.returnIcon)
+
+        this.endOfPlaying = setTimeout(function(a){
+            a.stopPlaying()
+            if(a.isRepeating)
+            {
+                a.startPlaying()
+            }
+            else{
+                a.isPlaying = false
+            }
+
+        }, t, this)
+    }
+
     stopPlaying(){
-        this.isPlaying.forEach(element => {
+        this.currentlyPlaying.forEach(element => {
             clearTimeout(element)
         });
         clearTimeout(this.endOfPlaying)
-        this.isPlaying = []
+        this.currentlyPlaying = []
         clearInterval(this.sliderInterval)
         this.slider.value = 0
         this.playBtn.innerHTML="";
         this.playBtn.appendChild(this.playIcon)
+        
+    }
+
+    repeat()
+    {
+        if(this.isRepeating)
+        {
+            this.isRepeating = false
+            this.repeatBtn.innerHTML=""
+            this.repeatBtn.appendChild(this.repeat_OffIcon)
+        }
+        else{
+            this.isRepeating = true
+            this.repeatBtn.innerHTML=""
+            this.repeatBtn.appendChild(this.repeat_ONIcon)
+        }
     }
 
     stickTo(){
-        document.getElementById("container").appendChild(this.chnl)
+        document.getElementById("channels").appendChild(this.chnl)
     }
 
 }
+
+
 
 new Channel().stickTo()
 new Channel().stickTo()
