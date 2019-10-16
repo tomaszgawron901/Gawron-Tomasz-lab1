@@ -2,7 +2,10 @@ let isRecording = null
 
 class Channel
 {
+    static numberOfChannels = 0
+
     constructor(){
+        Channel.numberOfChannels += 1
         this.soundPath = []
         this.currentlyPlaying = []
         this.isPlaying = false
@@ -166,17 +169,24 @@ class Channel
 }
 
 
+let channels = new Map()
 
-new Channel().stickTo()
-new Channel().stickTo()
-new Channel().stickTo()
+function addNewChannel()
+{
+    channels.set(Channel.numberOfChannels, new Channel())
+    document.getElementById("channels").innerHTML=""
+    channels.forEach(element => {
+        element.stickTo()
+        
+    });
+}
 
-
-
+addNewChannel()
 
 const boomSound = document.querySelector('#boom')
 const clapSound = document.querySelector('#clap')
 const kickSound = document.querySelector('#kick')
+document.getElementById("newChannelBtn").addEventListener('click', addNewChannel)
 document.body.addEventListener('keypress', playRecord)
 document.getElementById('playAll').addEventListener('click', playAll)
 
