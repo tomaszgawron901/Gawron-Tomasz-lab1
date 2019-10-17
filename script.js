@@ -1,10 +1,39 @@
-let isRecording = null
-
 class Channel
 {
+    static isRecording = null
     static numberOfChannels = 0
+    static channels = new Map()
+
+
+    static playAll()
+    {
+        if(Channel.isRecording==null)
+        {
+            Channel.channels.forEach(element => {
+                element.stopPlaying()
+                element.play()
+            });
+        }
+
+    }
+
+    static addNewChannel()
+    {
+        Channel.channels.set(Channel.numberOfChannels, new Channel())
+        Channel.viewAllChannals()
+    }
+    
+    static viewAllChannals()
+    {
+        document.getElementById("channels").innerHTML=""
+        Channel.channels.forEach(element => {
+            element.stickTo()
+        });
+    }
+
 
     constructor(){
+        this.name = Channel.numberOfChannels
         Channel.numberOfChannels += 1
         this.soundPath = []
         this.currentlyPlaying = []
@@ -13,6 +42,7 @@ class Channel
 
         this.recordBtn = document.createElement("BUTTON")
         this.recordBtn.prot = this
+        this.recordBtn.innerHTML="record"
         this.record_OffIcon = new Image(60, 60)
         this.record_OffIcon.src = "icons/record_OFF.png"
         this.record_ONIcon = new Image(60, 60)
@@ -20,10 +50,9 @@ class Channel
         this.recordBtn.appendChild(this.record_OffIcon)
         this.recordBtn.onclick = function(){this.prot.record()}
 
-
-
         this.playBtn = document.createElement("BUTTON")
         this.playBtn.prot = this
+        this.playBtn.innerHTML="play"
         this.playIcon = new Image(60, 60)
         this.playIcon.src = "icons/play.png"
         this.returnIcon = new Image(60, 60)
@@ -33,6 +62,7 @@ class Channel
 
         this.repeatBtn = document.createElement("BUTTON")
         this.repeatBtn.prot = this
+        this.repeatBtn.innerHTML="repeat"
         this.repeat_OffIcon = new Image(60, 60)
         this.repeat_OffIcon.src = "icons/repeat_OFF.png"
         this.repeat_ONIcon = new Image(60, 60)
@@ -43,6 +73,10 @@ class Channel
         this.deleteBtn = document.createElement("BUTTON")
         this.deleteBtn.prot = this
         this.deleteBtn.innerHTML = "delete"
+        this.deleteIcon = new Image(60, 60)
+        this.deleteIcon.src = "icons/delete.png"
+        this.deleteBtn.appendChild(this.deleteIcon)
+        this.deleteBtn.onclick = function(){this.prot.delete()}
 
         //<input type="range" min="0" max="100" value="0" class="slider" id="myRange" style="width: 100%;">
         this.slider = document.createElement("INPUT")
@@ -67,45 +101,42 @@ class Channel
     record(){
         if(!this.isPlaying)
         {
-            if(isRecording == null)
+            this.recordBtn.innerHTML="record"
+            if(Channel.isRecording == null)
             {
-                isRecording = this
-                this.recordBtn.innerHTML = ""
+                Channel.isRecording = this
                 this.recordBtn.appendChild(this.record_ONIcon)
-                isRecording.time0 = Date.now()
-                isRecording.soundPath = []
+                Channel.isRecording.time0 = Date.now()
+                Channel.isRecording.soundPath = []
             }
-            else if(this == isRecording) {
-                isRecording.soundPath.push({
+            else if(this == Channel.isRecording) {
+                Channel.isRecording.soundPath.push({
                     code: '',
-                    time: Date.now()-isRecording.time0
+                    time: Date.now()-Channel.isRecording.time0
                 })
-                this.recordBtn.innerHTML = ""
                 this.recordBtn.appendChild(this.record_OffIcon)
-                isRecording = null
+                Channel.isRecording = null
             }
         }
 
     }
 
     play(){
-        if(this.soundPath.length != 0 && isRecording!=this)
+        if(this.soundPath.length != 0 && Channel.isRecording!=this)
         {
             if(this.isPlaying)
             {
                 this.stopPlaying()
-                this.isPlaying = false
-
             }
             else{
                 this.startPlaying()
-                this.isPlaying = true
             }            
         }
     }
 
     startPlaying()
     {
+        this.playBtn.innerHTML="return"
         this.soundPath.forEach(element => {
             this.currentlyPlaying.push(setTimeout(playS, element.time, element.code))
         });
@@ -118,7 +149,6 @@ class Channel
                 clearInterval(a.sliderInterval)
             }
         }, t/100, this)
-        this.playBtn.innerHTML="";
         this.playBtn.appendChild(this.returnIcon)
 
         this.endOfPlaying = setTimeout(function(a){
@@ -132,9 +162,12 @@ class Channel
             }
 
         }, t, this)
+
+        this.isPlaying = true
     }
 
     stopPlaying(){
+        this.playBtn.innerHTML="play"
         this.currentlyPlaying.forEach(element => {
             clearTimeout(element)
         });
@@ -142,22 +175,21 @@ class Channel
         this.currentlyPlaying = []
         clearInterval(this.sliderInterval)
         this.slider.value = 0
-        this.playBtn.innerHTML="";
         this.playBtn.appendChild(this.playIcon)
         
+        this.isPlaying = false
     }
 
     repeat()
     {
+        this.repeatBtn.innerHTML="repeat"
         if(this.isRepeating)
         {
             this.isRepeating = false
-            this.repeatBtn.innerHTML=""
             this.repeatBtn.appendChild(this.repeat_OffIcon)
         }
         else{
             this.isRepeating = true
-            this.repeatBtn.innerHTML=""
             this.repeatBtn.appendChild(this.repeat_ONIcon)
         }
     }
@@ -166,29 +198,26 @@ class Channel
         document.getElementById("channels").appendChild(this.chnl)
     }
 
+    delete(){
+        if(Channel.isRecording == this)
+        {
+            Channel.isRecording = null
+        }
+        this.stopPlaying()
+        Channel.channels.delete(this.name)
+        Channel.viewAllChannals()
+    }
+
 }
 
-
-let channels = new Map()
-
-function addNewChannel()
-{
-    channels.set(Channel.numberOfChannels, new Channel())
-    document.getElementById("channels").innerHTML=""
-    channels.forEach(element => {
-        element.stickTo()
-        
-    });
-}
-
-addNewChannel()
+Channel.addNewChannel()
 
 const boomSound = document.querySelector('#boom')
 const clapSound = document.querySelector('#clap')
 const kickSound = document.querySelector('#kick')
-document.getElementById("newChannelBtn").addEventListener('click', addNewChannel)
+document.getElementById("newChannelBtn").addEventListener('click', Channel.addNewChannel)
 document.body.addEventListener('keypress', playRecord)
-document.getElementById('playAll').addEventListener('click', playAll)
+document.getElementById('playAll').addEventListener('click', Channel.playAll)
 
 function playS(code)
 {
@@ -212,24 +241,24 @@ function playS(code)
 
 function playRecord(e){
     playS(e.code)
-    if (isRecording != null){
+    if (Channel.isRecording != null){
         switch (e.code){
             case 'KeyC':
-                isRecording.soundPath.push({
+                Channel.isRecording.soundPath.push({
                     code: e.code,
-                    time: Date.now()-isRecording.time0
+                    time: Date.now()-Channel.isRecording.time0
                 })
                 break
             case 'KeyK':
-                isRecording.soundPath.push({
+                Channel.isRecording.soundPath.push({
                     code: e.code,
-                    time: Date.now()-isRecording.time0
+                    time: Date.now()-Channel.isRecording.time0
                 })
                 break
             case 'KeyB':
-                isRecording.soundPath.push({
+                Channel.isRecording.soundPath.push({
                     code: e.code,
-                    time: Date.now()-isRecording.time0
+                    time: Date.now()-Channel.isRecording.time0
                 })
                 break
         }            
