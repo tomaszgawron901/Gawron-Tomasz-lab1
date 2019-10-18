@@ -55,9 +55,11 @@ class Channel
         this.playBtn.innerHTML="play"
         this.playIcon = new Image(60, 60)
         this.playIcon.src = "icons/play.png"
+        this.playDisabledIcon = new Image(60, 60)
+        this.playDisabledIcon.src = "icons/play_disabled.png"
         this.returnIcon = new Image(60, 60)
         this.returnIcon.src = "icons/return.png"
-        this.playBtn.appendChild(this.playIcon)
+        this.playBtn.appendChild(this.playDisabledIcon)
         this.playBtn.onclick = function(){this.prot.play()}
 
         this.repeatBtn = document.createElement("BUTTON")
@@ -114,6 +116,8 @@ class Channel
                     code: '',
                     time: Date.now()-Channel.isRecording.time0
                 })
+                this.playBtn.innerHTML="play"
+                this.playBtn.appendChild(this.playIcon)
                 this.recordBtn.appendChild(this.record_OffIcon)
                 Channel.isRecording = null
             }
@@ -175,7 +179,13 @@ class Channel
         this.currentlyPlaying = []
         clearInterval(this.sliderInterval)
         this.slider.value = 0
-        this.playBtn.appendChild(this.playIcon)
+        if(this.soundPath.length > 0){
+            this.playBtn.appendChild(this.playIcon)
+        }
+        else{
+            this.playBtn.appendChild(this.playDisabledIcon)
+        }
+        
         
         this.isPlaying = false
     }
@@ -214,7 +224,13 @@ Channel.addNewChannel()
 
 const boomSound = document.querySelector('#boom')
 const clapSound = document.querySelector('#clap')
+const hithatSound = document.querySelector('#hithat')
 const kickSound = document.querySelector('#kick')
+const openhatSound = document.querySelector('#openhat')
+const rideSound = document.querySelector('#ride')
+const snareSound = document.querySelector('#snare')
+const tinkSound = document.querySelector('#tink')
+const tomSound = document.querySelector('#tom')
 document.getElementById("newChannelBtn").addEventListener('click', Channel.addNewChannel)
 document.body.addEventListener('keypress', playRecord)
 document.getElementById('playAll').addEventListener('click', Channel.playAll)
@@ -222,17 +238,41 @@ document.getElementById('playAll').addEventListener('click', Channel.playAll)
 function playS(code)
 {
     switch (code){
-            case 'KeyC':
+            case 'KeyA':
+                boomSound.currentTime = 0
+                boomSound.play()
+                break
+            case 'KeyS':
                 clapSound.currentTime = 0
                 clapSound.play()
                 break
-            case 'KeyK':
+            case 'KeyD':
+                hithatSound.currentTime = 0
+                hithatSound.play()
+                break
+            case 'KeyF':
                 kickSound.currentTime = 0
                 kickSound.play()
                 break
-            case 'KeyB':
-                boomSound.currentTime = 0
-                boomSound.play()
+            case 'KeyG':
+                openhatSound.currentTime = 0
+                openhatSound.play()
+                break
+            case 'KeyH':
+                rideSound.currentTime = 0
+                rideSound.play()
+                break
+            case 'KeyJ':
+                snareSound.currentTime = 0
+                snareSound.play()
+                break
+            case 'KeyK':
+                tinkSound.currentTime = 0
+                tinkSound.play()
+                break
+            case 'KeyL':
+                tomSound.currentTime = 0
+                tomSound.play()
                 break
     }
 }
@@ -240,28 +280,17 @@ function playS(code)
 
 
 function playRecord(e){
-    playS(e.code)
-    if (Channel.isRecording != null){
-        switch (e.code){
-            case 'KeyC':
-                Channel.isRecording.soundPath.push({
-                    code: e.code,
-                    time: Date.now()-Channel.isRecording.time0
-                })
-                break
-            case 'KeyK':
-                Channel.isRecording.soundPath.push({
-                    code: e.code,
-                    time: Date.now()-Channel.isRecording.time0
-                })
-                break
-            case 'KeyB':
-                Channel.isRecording.soundPath.push({
-                    code: e.code,
-                    time: Date.now()-Channel.isRecording.time0
-                })
-                break
-        }            
+    if(e.code == 'KeyA' || e.code == 'KeyS' || e.code == 'KeyD' || e.code == 'KeyF' || e.code == 'KeyG' || e.code == 'KeyH' || e.code == 'KeyJ' || e.code == 'KeyK' || e.code == 'KeyL')
+    {
+        playS(e.code)
+        if (Channel.isRecording != null)
+        {
+            Channel.isRecording.soundPath.push({
+                code: e.code,
+                time: Date.now()-Channel.isRecording.time0
+            })            
+        }
+
     }
 }
 
