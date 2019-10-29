@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(241, 226, 255);
+    display: flex;
+    flex-flow: row;
+}
+
+#toolBar{
+    width: 350px;
+    height: 100vh;
+    border: blueviolet solid 2px;
+}
+
+#toolBar:div{
+    width: 350px;
+    height: 50px;
+    border: blueviolet solid 2px;
+}
+
+#workSpace{
+    margin: auto;
+}
+
+.toolBarBTN{
+    width: 100%;
+    height: 50px;
+    background-color: blueviolet;
+    color: white;
+}
+
+.divClosed{
+    height: 0px;
+    visibility: hidden;
+}
+
+.divOpened{
+    height: 100%;
+    visibility: visible;
+}

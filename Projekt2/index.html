@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Projekt2 - Photoshop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="toolBar">
+            <div id="fileContainer" >
+                <button id="fileBTN" class="toolBarBTN">FILE</button>
+                <div id="file" class="divClosed">f</div>
+            </div>
+            <div id="colorContainer">
+                <button id="colorBTN" class="toolBarBTN">COLOR</button>
+                <div id="color" class="divClosed">c</div>
+            </div>
+            <div id="brushContainer">
+                <button id="brushBTN" class="toolBarBTN">BRUSH</button>
+                <div id="brush" class="divClosed">b</div>
+            </div>
+            <div id="modificationsContainer">
+                <button id="modificationsBTN" class="toolBarBTN">MODIFICATIONS</button>
+                <div id="modifications" class="divClosed">m</div>
+            </div>
+        </div>
+
+        <div id="workSpace">
+            <canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;"></canvas>
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
