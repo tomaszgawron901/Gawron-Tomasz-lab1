@@ -53,6 +53,15 @@ div.margin{
     justify-content: space-between;
 }
 
+.toolContainer{
+    border: solid blueviolet 1px;
+}
+
+.toolContainer > * .toolContainer{
+    width: 90%;
+    margin: auto;
+}
+
 button.margin{
     background-color: white;
     border: solid blueviolet 1px;

@@ -10,7 +10,7 @@
 <body>
     <div id="container">
         <div id="toolBar">
-            <div id="fileContainer" >
+            <div id="fileContainer" class="toolContainer">
                 <button id="fileBTN" class="toolBarBTN">FILE</button>
                 <div id="file" class="divClosed toolBarOptions">
                     
@@ -24,15 +24,25 @@
                     <button id="clearCanvas" class="margin">Clear Canvas</button>
                 </div>
             </div>
-            <div id="colorContainer">
-                <button id="colorBTN" class="toolBarBTN">COLOR</button>
-                <div id="color" class="divClosed toolBarOptions">c</div>
-            </div>
-            <div id="brushContainer">
+
+            <div id="brushContainer" class="toolContainer">
                 <button id="brushBTN" class="toolBarBTN">BRUSH</button>
-                <div id="brush" class="divClosed toolBarOptions">b</div>
+                <div id="brush" class="divClosed toolBarOptions">
+                    <div id="colorContainer" class="toolContainer">
+                            <button id="colorBTN" class="toolBarBTN">COLOR</button>
+                            <div id="color" class="divClosed toolBarOptions">
+                                <input type="color" id="colorInput" class="toolBarOptions" style="width: 98%;" min="0" max="100">
+                                <input type="range" id="opacityInput" class="toolBarOptions" style="width: 98%;" min="0" max="100">
+                            </div>
+                    </div>
+                    <div id="shapeContainer" class="toolContainer">
+                            <button id="shapeBTN" class="toolBarBTN">SHAPE</button>
+                            <div id="shape" class="divClosed toolBarOptions"> sss</div>
+                    </div>
+                </div>
             </div>
-            <div id="modificationsContainer">
+            <div id="modificationsContainer" class="toolContainer">
+                
                 <button id="modificationsBTN" class="toolBarBTN">MODIFICATIONS</button>
                 <div id="modifications" class="divClosed toolBarOptions">m <button>no button</button></div>
             </div>

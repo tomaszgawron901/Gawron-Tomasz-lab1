@@ -17,14 +17,30 @@ clearCanvasBTN.addEventListener('click', ()=>{newCanvas(myCanvas.clientWidth, my
 
 const fileBTN = document.getElementById("fileBTN")
 const colorBTN = document.getElementById("colorBTN")
+const shapeBTN = document.getElementById("shapeBTN")
 const brushBTN = document.getElementById("brushBTN")
 const modificationsBTN = document.getElementById("modificationsBTN")
 fileBTN.addEventListener('click', function(){open_close(document.getElementById("file"))})
 colorBTN.addEventListener('click', function(){open_close(document.getElementById("color"))})
+shapeBTN.addEventListener('click', ()=>{{open_close(document.getElementById("shape"))}})
 brushBTN.addEventListener('click', function(){open_close(document.getElementById("brush"))})
 modificationsBTN.addEventListener('click', function(){open_close(document.getElementById("modifications"))})
 
-myCanvas.clientWidth
+
+let brushColor = [0, 0, 0, 100]
+const colorInput = document.getElementById("colorInput")
+const opacityInput = document.getElementById("opacityInput")
+colorInput.addEventListener("change", ()=>{brushColor = HEX_to_RGB(colorInput.value, opacityInput.value)})
+opacityInput.addEventListener("change", ()=>{brushColor = HEX_to_RGB(colorInput.value, opacityInput.value)})
+
+
+function HEX_to_RGB(hex, opacity)
+{
+    let red = parseInt(hex.substring(1,3), 16)
+    let green = parseInt(hex.substring(3,5), 16)
+    let blue = parseInt(hex.substring(5,7), 16)
+    return [red, green, blue, parseInt(opacity)]
+}
 
 function openImage(e)
 {
