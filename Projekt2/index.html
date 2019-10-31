@@ -12,19 +12,29 @@
         <div id="toolBar">
             <div id="fileContainer" >
                 <button id="fileBTN" class="toolBarBTN">FILE</button>
-                <div id="file" class="divClosed">f</div>
+                <div id="file" class="divClosed toolBarOptions">
+                    
+                    <div class="margin">
+                        <input type="text" id="width" placeholder="width" >
+                        <input type="text" id="height" placeholder="height" >
+                    </div>
+                    <button id="newCanvasBtn" class="margin">New Canvas</button>
+                    <button id="openImageBtn" class="margin">Open Image</button>
+                    <input type="file" id="openImageInput" name="Open Image" accept=".jpg,.jpeg,.jpe,.png" style="display: none;">
+                    <button id="clearCanvas" class="margin">Clear Canvas</button>
+                </div>
             </div>
             <div id="colorContainer">
                 <button id="colorBTN" class="toolBarBTN">COLOR</button>
-                <div id="color" class="divClosed">c</div>
+                <div id="color" class="divClosed toolBarOptions">c</div>
             </div>
             <div id="brushContainer">
                 <button id="brushBTN" class="toolBarBTN">BRUSH</button>
-                <div id="brush" class="divClosed">b</div>
+                <div id="brush" class="divClosed toolBarOptions">b</div>
             </div>
             <div id="modificationsContainer">
                 <button id="modificationsBTN" class="toolBarBTN">MODIFICATIONS</button>
-                <div id="modifications" class="divClosed">m</div>
+                <div id="modifications" class="divClosed toolBarOptions">m <button>no button</button></div>
             </div>
         </div>
 

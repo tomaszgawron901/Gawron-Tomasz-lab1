@@ -12,9 +12,11 @@ body{
 }
 
 #toolBar{
+    min-width: 350px;
     width: 350px;
     height: 100vh;
     border: blueviolet solid 2px;
+    overflow-y: auto;
 }
 
 #toolBar:div{
@@ -34,9 +36,37 @@ body{
     color: white;
 }
 
+.toolBarOptions{
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 15px;
+}
+
+.margin{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+div.margin{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+button.margin{
+    background-color: white;
+    border: solid blueviolet 1px;
+}
+
+button.margin:hover{
+    background-color: rgb(187, 116, 253);
+    border: solid white 1px;
+    color: white;
+}
+
 .divClosed{
     height: 0px;
-    visibility: hidden;
+    display: none;
 }
 
 .divOpened{

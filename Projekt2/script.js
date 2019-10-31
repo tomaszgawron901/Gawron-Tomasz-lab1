@@ -1,3 +1,8 @@
+const openImageBTN = document.getElementById("openImageBtn")
+const openImageInput = document.getElementById("openImageInput")
+openImageBTN.addEventListener('click', ()=>{openImageInput.click()})
+openImageInput.addEventListener('change', ()=>{console.log("zmiana")})
+
 const fileBTN = document.getElementById("fileBTN")
 const colorBTN = document.getElementById("colorBTN")
 const brushBTN = document.getElementById("brushBTN")
