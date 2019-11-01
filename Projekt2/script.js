@@ -27,11 +27,16 @@ brushBTN.addEventListener('click', function(){open_close(document.getElementById
 modificationsBTN.addEventListener('click', function(){open_close(document.getElementById("modifications"))})
 
 
-let brushColor = [0, 0, 0, 100]
+let brushColor = [0, 0, 0, 1]
 const colorInput = document.getElementById("colorInput")
 const opacityInput = document.getElementById("opacityInput")
-colorInput.addEventListener("change", ()=>{brushColor = HEX_to_RGB(colorInput.value, opacityInput.value)})
+colorInput.addEventListener("change", ()=>{
+    brushColor = HEX_to_RGB(colorInput.value, opacityInput.value)
+    opacityInput.style.background = "linear-gradient(0.25turn, rgba(0, 0, 0, 0),"+ 
+    "rgb("+ brushColor[0] +", " +brushColor[1]+", "+brushColor[2]+"))"
+    })
 opacityInput.addEventListener("change", ()=>{brushColor = HEX_to_RGB(colorInput.value, opacityInput.value)})
+
 
 
 function HEX_to_RGB(hex, opacity)
@@ -39,7 +44,7 @@ function HEX_to_RGB(hex, opacity)
     let red = parseInt(hex.substring(1,3), 16)
     let green = parseInt(hex.substring(3,5), 16)
     let blue = parseInt(hex.substring(5,7), 16)
-    return [red, green, blue, parseInt(opacity)]
+    return [red, green, blue, parseFloat(opacity)]
 }
 
 function openImage(e)

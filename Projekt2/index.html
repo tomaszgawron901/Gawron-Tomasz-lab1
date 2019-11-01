@@ -15,8 +15,8 @@
                 <div id="file" class="divClosed toolBarOptions">
                     
                     <div class="margin">
-                        <input type="number" id="widthInput" placeholder="width" min="1">
-                        <input type="number" id="heightInput" placeholder="height" min="1">
+                        <input type="number" id="widthInput" placeholder="width" min="1" value="600">
+                        <input type="number" id="heightInput" placeholder="height" min="1" value="400">
                     </div>
                     <button id="newCanvasBtn" class="margin">New Canvas</button>
                     <button id="openImageBtn" class="margin">Open Image</button>
@@ -32,7 +32,7 @@
                             <button id="colorBTN" class="toolBarBTN">COLOR</button>
                             <div id="color" class="divClosed toolBarOptions">
                                 <input type="color" id="colorInput" class="toolBarOptions" style="width: 98%;" min="0" max="100">
-                                <input type="range" id="opacityInput" class="toolBarOptions" style="width: 98%;" min="0" max="100">
+                                <input type="range" id="opacityInput" class="toolBarOptions slider" style="width: 98%;" min="0" max="1" step="0.01" value="1">
                             </div>
                     </div>
                     <div id="shapeContainer" class="toolContainer">

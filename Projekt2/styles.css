@@ -82,3 +82,8 @@ button.margin:hover{
     height: 100%;
     visibility: visible;
 }
+
+.slider{
+    -webkit-appearance: none;
+    background: linear-gradient(0.25turn, rgba(0, 0, 0, 0), rgb(0, 0, 0));
+  }
