@@ -1,6 +1,5 @@
 const workSpace = document.getElementById("workSpace")
-let myCanvas = document.getElementById("myCanvas")
-let ctx = myCanvas.getContext('2d')
+
 
 const newCanvasBTN = document.getElementById("newCanvasBtn")
 const widthInput = document.getElementById("widthInput")
@@ -44,52 +43,11 @@ function HEX_to_RGB(hex, opacity)
     let red = parseInt(hex.substring(1,3), 16)
     let green = parseInt(hex.substring(3,5), 16)
     let blue = parseInt(hex.substring(5,7), 16)
-    return [red, green, blue, parseFloat(opacity)]
+    return  [red, green, blue, parseFloat(opacity)]
 }
 
-function openImage(e)
+function RGB_toString(RGB)
 {
-    selectedFile = e.target.files[0]
-    if(e.target.files.length != 0)
-    {
-        let img = new Image(myCanvas.clientWidth, myCanvas.clientHeight)
-        let reader = new FileReader()
-        reader.onload = (e)=>{
-            img.src = e.target.result
-        }
-        reader.readAsDataURL(selectedFile)
-        img.addEventListener('load', () =>{
-            ctx.drawImage(img, 0, 0, myCanvas.clientWidth, myCanvas.clientHeight)
-        })
-    }
+    return "rgba("+RGB[0]+", "+RGB[1]+", "+RGB[2]+", "+RGB[3]+")"
 }
 
-function open_close(obj)
-{
-    if(obj.classList.contains("divClosed"))
-    {
-        obj.classList.remove("divClosed")
-    }else
-    {
-        obj.classList.add("divClosed")
-    }
-}
-
-function newCanvas(width, height)
-{
-    if(width < 1 || isNaN(width)){
-        width = 600
-    }
-    if(height < 1 || isNaN(height)){
-        height = 400
-    }
-    myCanvas = document.createElement("CANVAS")
-    myCanvas.id = "myCanvas"
-    ctx = myCanvas.getContext('2d')
-    myCanvas.setAttribute("width", width)
-    myCanvas.setAttribute("height", height)
-    myCanvas.setAttribute("style", "border:1px solid #000000;")
-    workSpace.innerHTML = ""
-    workSpace.appendChild(myCanvas)
-
-}
