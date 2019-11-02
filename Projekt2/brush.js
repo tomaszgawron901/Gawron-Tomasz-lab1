@@ -9,8 +9,10 @@ class pencil
 
     start(x,y)
     {
+        this.copy = copyCanvasData()        
         ctx.moveTo(x,y)
         ctx.beginPath()
+        ctx.lineCap = "round";
         ctx.lineWidth = this.size
         ctx.strokeStyle = RGB_toString(this.color)
         this.lastPosition = [x, y]
@@ -18,19 +20,20 @@ class pencil
 
     stop()
     {
-        ctx.stroke();
+        ctx.closePath()
     }
 
     paint(position)
     {
-        console.log(position);
+        ctx.putImageData(this.copy, 0, 0)
         ctx.lineTo(position[0], position[1]);
-        
-        //ctx.beginPath()
-        //ctx.moveTo(position[0], position[1])
+        ctx.stroke();
     }
 }
 
-let currentBrush = new pencil(4)
+
+const pencilBrush = new pencil()
+let currentBrush = null
 let painting = false
 let brushColor = [0, 0, 0, 1]
+let brushSize = 1

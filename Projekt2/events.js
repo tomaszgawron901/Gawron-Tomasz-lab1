@@ -1,7 +1,9 @@
 // File section
 newCanvasBTN.addEventListener('click', ()=>{newCanvas(parseInt(widthInput.value), parseInt(heightInput.value))})
 fileBTN.addEventListener('click', function(){open_close(document.getElementById("file"))})
-openImageBTN.addEventListener('click', ()=>{openImageInput.click()})
+openImageBTN.addEventListener('click', ()=>{
+    openImageInput.value = ""
+    openImageInput.click()})
 openImageInput.addEventListener('change', openImage)
 clearCanvasBTN.addEventListener('click', ()=>{newCanvas(myCanvas.clientWidth, myCanvas.clientHeight)})
 
@@ -44,9 +46,10 @@ sizeSlider.addEventListener('input', (e)=>{
         }
         sizeSlider.max = newMax
     }
+    brushSize = parseInt(sizeInput.value)
     if(currentBrush != null)
     {
-        currentBrush.size = parseInt(sizeInput.value)
+        currentBrush.size = brushSize
     }
 })
 sizeInput.addEventListener('input', (e)=>{
@@ -57,9 +60,23 @@ sizeInput.addEventListener('input', (e)=>{
         sizeInput.value = 1
     }
     sizeSlider.value = currentValue
+    brushSize = parseInt(sizeInput.value)
     if(currentBrush != null)
     {
-        currentBrush.size = parseInt(sizeInput.value)
+        currentBrush.size = brushSize
+    }
+})
+selectBrush.addEventListener('change', (e)=>{
+    switch(e.target.value)
+    {
+        case "null":
+            currentBrush = null
+            break
+        case "pencil":
+            currentBrush = pencilBrush
+            currentBrush.color = brushColor
+            currentBrush.size = brushSize
+            break
     }
 })
 

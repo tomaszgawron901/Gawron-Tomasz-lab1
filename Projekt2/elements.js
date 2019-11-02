@@ -21,6 +21,7 @@ const opacityInput = document.getElementById("opacityInput")
 const shapeBTN = document.getElementById("shapeBTN")
 const sizeSlider = document.getElementById("sizeSlider")
 const sizeInput = document.getElementById("sizeInput")
+const selectBrush = document.getElementById("selectBrush")
 
 // Modifications section
 const modificationsBTN = document.getElementById("modificationsBTN")

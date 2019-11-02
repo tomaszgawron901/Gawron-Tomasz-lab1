@@ -62,5 +62,9 @@ function newCanvas(width, height)
     })
     workSpace.innerHTML = ""
     workSpace.appendChild(myCanvas)
-    openImageInput.value = ""
+    
+}
+
+function copyCanvasData() {
+    return ctx.getImageData(0,0,myCanvas.width, myCanvas.height)
 }
