@@ -4,9 +4,12 @@ let ctx = myCanvas.getContext('2d')
 
 function openImage(e)
 {
-    selectedFile = e.target.files[0]
+    console.log(e);
+    
+    
     if(e.target.files.length != 0)
     {
+        let selectedFile = e.target.files[0]
         let img = new Image(myCanvas.clientWidth, myCanvas.clientHeight)
         let reader = new FileReader()
         reader.onload = (e)=>{
@@ -59,5 +62,5 @@ function newCanvas(width, height)
     })
     workSpace.innerHTML = ""
     workSpace.appendChild(myCanvas)
-
+    openImageInput.value = ""
 }

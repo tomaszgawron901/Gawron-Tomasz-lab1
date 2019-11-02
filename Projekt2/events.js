@@ -23,6 +23,45 @@ opacityInput.addEventListener("change", ()=>{brushColor = HEX_to_RGB(colorInput.
     })
     // Shape section
 shapeBTN.addEventListener('click', ()=>{{open_close(document.getElementById("shape"))}})
+sizeSlider.addEventListener('input', (e)=>{
+    let maxValue = parseInt(e.target.max)
+    let currentValue = parseInt(e.target.value)  
+    sizeInput.value = currentValue
+    if(currentValue >= maxValue)
+    {
+        newMax = sizeSlider.max*1.01
+        if(newMax>1000)
+        {
+            newMax=1000
+        }
+        sizeSlider.max = newMax
+    }else
+    {
+        newMax = sizeSlider.max*0.9
+        if(newMax<100)
+        {
+            newMax =100
+        }
+        sizeSlider.max = newMax
+    }
+    if(currentBrush != null)
+    {
+        currentBrush.size = parseInt(sizeInput.value)
+    }
+})
+sizeInput.addEventListener('input', (e)=>{
+    let currentValue = parseInt(e.target.value)
+    if(currentValue <1 || isNaN(currentValue))
+    {
+        currentValue = 1
+        sizeInput.value = 1
+    }
+    sizeSlider.value = currentValue
+    if(currentBrush != null)
+    {
+        currentBrush.size = parseInt(sizeInput.value)
+    }
+})
 
 
 // Modifications section
@@ -46,6 +85,7 @@ window.addEventListener('mouseup', ()=>{
     {
         painting = false
         currentBrush.lastPosition = null
+        currentBrush.stop()
     }
 })
 window.addEventListener('mousemove', (e)=>{

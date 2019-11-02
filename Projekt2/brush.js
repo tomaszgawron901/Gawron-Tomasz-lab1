@@ -16,15 +16,18 @@ class pencil
         this.lastPosition = [x, y]
     }
 
+    stop()
+    {
+        ctx.stroke();
+    }
+
     paint(position)
     {
         console.log(position);
         ctx.lineTo(position[0], position[1]);
-        ctx.stroke();
-        ctx.beginPath()
-        ctx.moveTo(position[0], position[1])
-        this.lastPosition = position
-
+        
+        //ctx.beginPath()
+        //ctx.moveTo(position[0], position[1])
     }
 }
 
