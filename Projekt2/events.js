@@ -72,8 +72,8 @@ selectBrush.addEventListener('change', (e)=>{
         case "null":
             currentBrush = null
             break
-        case "pencil":
-            currentBrush = pencilBrush
+        case "inker":
+            currentBrush = inkerBrush
             currentBrush.color = brushColor
             currentBrush.size = brushSize
             break
@@ -83,6 +83,14 @@ selectBrush.addEventListener('change', (e)=>{
 
 // Modifications section
 modificationsBTN.addEventListener('click', function(){open_close(document.getElementById("modifications"))})
+saturationBTN.addEventListener('click', function(){open_close(document.getElementById("saturation"))})
+    //Saturation section
+redSaturationInput.addEventListener('input', (e)=>{console.log(e);
+})
+greenSaturationInput.addEventListener('input', (e)=>{console.log(e);
+})
+blueSaturationInput.addEventListener('input', (e)=>{console.log(e);
+})
 
 
 // Mouse section
@@ -92,8 +100,12 @@ myCanvas.addEventListener("mousedown", (e)=>{
         painting = true
         let x = e.clientX - myCanvas.offsetLeft
         let y = e.clientY - myCanvas.offsetTop
-        currentBrush.start(x,y)
-        
+        currentBrush.start()
+        currentBrush.addPoint({
+            x: x,
+            y: y
+        })
+        currentBrush.paint()
     }
 })
 window.addEventListener('mouseup', ()=>{
@@ -101,7 +113,6 @@ window.addEventListener('mouseup', ()=>{
     if(currentBrush != null)
     {
         painting = false
-        currentBrush.lastPosition = null
         currentBrush.stop()
     }
 })
@@ -112,7 +123,11 @@ window.addEventListener('mousemove', (e)=>{
     {
         let x = e.clientX - myCanvas.offsetLeft
         let y = e.clientY - myCanvas.offsetTop
-        currentBrush.paint([x,y])
+        currentBrush.addPoint({
+            x: x,
+            y: y
+        })
+        currentBrush.paint()
     }
 })
 

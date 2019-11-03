@@ -25,4 +25,8 @@ const selectBrush = document.getElementById("selectBrush")
 
 // Modifications section
 const modificationsBTN = document.getElementById("modificationsBTN")
-
+const saturationBTN = document.getElementById("saturationBTN")
+    // Saturation section
+const redSaturationInput = document.getElementById("redSaturationInput")
+const greenSaturationInput = document.getElementById("greenSaturationInput")
+const blueSaturationInput = document.getElementById("blueSaturationInput")
