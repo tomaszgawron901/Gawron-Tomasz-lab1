@@ -85,12 +85,43 @@ selectBrush.addEventListener('change', (e)=>{
 modificationsBTN.addEventListener('click', function(){open_close(document.getElementById("modifications"))})
 saturationBTN.addEventListener('click', function(){open_close(document.getElementById("saturation"))})
     //Saturation section
-redSaturationInput.addEventListener('input', (e)=>{console.log(e);
+redSaturationInput.addEventListener('input', (e)=>{
+    if(Modifications.current == null)
+    {
+        Modifications.current = new Saturation()
+        Modifications.current.start()
+    }
+    Modifications.current.red = parseFloat(e.target.value)
+    console.log(Modifications.current);
+    
 })
-greenSaturationInput.addEventListener('input', (e)=>{console.log(e);
+greenSaturationInput.addEventListener('input', (e)=>{
+    if(Modifications.current == null)
+    {
+        Modifications.current = new Saturation()
+        Modifications.current.start()
+    }
+    Modifications.current.green = parseFloat(e.target.value)
+    console.log(Modifications.current);
 })
-blueSaturationInput.addEventListener('input', (e)=>{console.log(e);
+blueSaturationInput.addEventListener('input', (e)=>{
+    if(Modifications.current == null)
+    {
+        Modifications.current = new Saturation()
+        Modifications.current.start()
+    }
+    Modifications.current.blue = parseFloat(e.target.value)
+    console.log(Modifications.current);
 })
+cancelModificationsBTN.addEventListener('click', ()=>{
+    if(Modifications.current!=null)
+    {
+        Modifications.current.cancel()
+    }
+    console.log(Modifications.current);
+    
+})
+
 
 
 // Mouse section
