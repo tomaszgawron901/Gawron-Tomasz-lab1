@@ -1,8 +1,18 @@
 class Brush{
-    constructor(size, color=[0, 0, 0, 1]){
+    static painting = false
+    static brushColor = [0, 0, 0, 1]
+    static brushSize = 1
+
+    constructor(size, color=[0, 0, 0, 1], ctx){
         this.size = size
         this.color = color
         this.points = []
+        this.ctx = ctx
+    }
+
+    setCTX(ctx)
+    {
+        this.ctx = ctx
     }
 
     addPoint(position)
@@ -10,9 +20,9 @@ class Brush{
         this.points.push(position)
     }
 
-    start()
+    start(copy)
     {
-        this.copy = copyCanvasData()
+        this.copy = copy
     }
 
     stop()
@@ -24,35 +34,30 @@ class Brush{
 
 class Inker extends Brush
 {
-    constructor(size, color=[0, 0, 0, 1])
+    constructor(size, color=[0, 0, 0, 1], PS)
     {
-        super(size, color)
-    }
-
-    start()
-    {
-        this.copy = copyCanvasData()
+        super(size, color, PS)
     }
 
 
     paint()
     {
-        ctx.lineCap = "round";
-        ctx.lineWidth = this.size
-        ctx.strokeStyle = RGB_toString(this.color)
-        ctx.putImageData(this.copy, 0, 0)
+        this.ctx.lineCap = "round";
+        this.ctx.lineWidth = this.size
+        this.ctx.strokeStyle = RGB_toString(this.color)
+        this.ctx.putImageData(this.copy, 0, 0)
         let x = this.points[0].x
         let y = this.points[0].y
-        ctx.beginPath()
-        ctx.moveTo(x,y)
+        this.ctx.beginPath()
+        this.ctx.moveTo(x,y)
         for(let i =1; i < this.points.length-1; i+=2)
         {
             x = (this.points[i].x + this.points[i+1].x)/2
             y = (this.points[i].y + this.points[i+1].y)/2
-            ctx.lineTo(x,y)
+            this.ctx.lineTo(x,y)
         }
-        ctx.stroke();
-        ctx.closePath()
+        this.ctx.stroke();
+        this.ctx.closePath()
     }
 }
 
@@ -64,27 +69,9 @@ class QuillPen extends Brush
         super(size, color)
     }
 
-    start()
-    {
-        this.copy = copyCanvasData()
-    }
-
-
-
-    paint()
-    {
-
-
-    }
-
 }
 
 function distance(p1, p2) {
     return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2))
 }
 
-const inkerBrush = new Inker()
-let currentBrush = null
-let painting = false
-let brushColor = [0, 0, 0, 1]
-let brushSize = 1
