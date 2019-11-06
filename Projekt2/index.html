@@ -11,7 +11,7 @@
     <div id="container">
         <div id="toolBar">
             <div id="fileContainer" class="toolContainer">
-                <button id="fileBTN" class="toolBarBTN">FILE</button>
+                <button id="fileBTN" class="toolBarBTNClosed toolBarBTN">FILE</button>
                 <div id="file" class="divClosed toolBarOptions">
                     
                     <div class="margin">
@@ -26,10 +26,10 @@
             </div>
 
             <div id="brushContainer" class="toolContainer">
-                <button id="brushBTN" class="toolBarBTN">BRUSH</button>
+                <button id="brushBTN" class="toolBarBTNClosed toolBarBTN">BRUSH</button>
                 <div id="brush" class="divClosed toolBarOptions">
                     <div id="colorContainer" class="toolContainer">
-                            <button id="colorBTN" class="toolBarBTN">COLOR</button>
+                            <button id="colorBTN" class="toolBarBTNClosed toolBarBTN">COLOR</button>
                             <div id="color" class="divClosed toolBarOptions">
                                 <div>
                                     Color Picker
@@ -42,7 +42,7 @@
                             </div>
                     </div>
                     <div id="shapeContainer" class="toolContainer">
-                        <button id="shapeBTN" class="toolBarBTN">SHAPE</button>
+                        <button id="shapeBTN" class="toolBarBTNClosed toolBarBTN">SHAPE</button>
                         <div id="shape" class="divClosed toolBarOptions">
                             <div class="margin">
                                 <a>Size: </a>
@@ -63,10 +63,10 @@
             </div>
             <div id="modificationsContainer" class="toolContainer">
                 
-                <button id="modificationsBTN" class="toolBarBTN">MODIFICATIONS</button>
+                <button id="modificationsBTN" class="toolBarBTNClosed toolBarBTN">MODIFICATIONS</button>
                 <div id="modifications" class="divClosed toolBarOptions">
                     <div id="saturationContainer" class="toolContainer">
-                        <button id="saturationBTN" class="toolBarBTN">SATURATION</button>
+                        <button id="saturationBTN" class="toolBarBTNClosed toolBarBTN">SATURATION</button>
                         <div id="saturation" class="divClosed toolBarOptions">
                             <input type="range" id="redSaturationInput" class="toolBarOptions slider" style="width: 98%; background: linear-gradient(0.25turn, rgba(0, 0, 0, 1), rgb(255, 0, 0));" min="0" max="2" step="0.01" value="1">
                             <input type="range" id="greenSaturationInput" class="toolBarOptions slider" style="width: 98%; background: linear-gradient(0.25turn, rgba(0, 0, 0, 1), rgb(0, 255, 0));" min="0" max="2" step="0.01" value="1">
@@ -75,12 +75,23 @@
                     </div>
 
                     <div id="brightnessContainer" class="toolContainer">
-                        <button id="brightnessBTN" class="toolBarBTN">BRIGHTNESS</button>
+                        <button id="brightnessBTN" class="toolBarBTNClosed toolBarBTN">BRIGHTNESS</button>
                         <div id="brightness" class="divClosed toolBarOptions">
-                            <input type="range" id="brightnessInput" class="toolBarOptions slider" style="width: 98%; background: linear-gradient(0.25turn, rgba(0, 0, 0, 1), rgb(255, 255, 255));" min="0" max="2" step="0.01" value="1">
+                            <input type="range" id="brightnessInput" class="toolBarOptions slider" style="width: 98%; background: linear-gradient(0.25turn, rgba(0, 0, 0, 1), rgb(255, 255, 255));" min="-255" max="255" step="1" value="0">
                         </div>
                     </div>
-
+                    <div id="blurContainer" class="toolContainer">
+                            <button id="blurBTN" class="toolBarBTNClosed toolBarBTN">BLUR</button>
+                            <div id="blur" class="divClosed toolBarOptions">
+                                    <div class="margin">
+                                            <a>Type: </a>
+                                            <select id="selectBrush" style="width: 100%;">
+                                                    <option value="Gaussian_Blue">Gaussian Blur</option>
+                                            </select>
+                                        </div>
+                                <input type="range" id="blurInput" class="toolBarOptions"  min="1" max="10" step="1" value="1">
+                            </div>
+                        </div>
                     <div class="margin">
                         <button id="cancelModificationsBTN" class="margin" style="width: 100%;">Cancel</button>
                         <button id="applyModificationsBTN" class="margin" style="width: 100%;">Apply</button>

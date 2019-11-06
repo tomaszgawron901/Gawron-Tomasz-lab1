@@ -35,3 +35,6 @@ const saturationBTN = document.getElementById("saturationBTN")
     // Brightness section
     const brightnessBTN = document.getElementById("brightnessBTN")
     const brightnessInput = document.getElementById("brightnessInput")
+    // Blur section
+    const blurBTN = document.getElementById("blurBTN")
+    const blurInput = document.getElementById("blurInput")

@@ -1,13 +1,37 @@
 const currentPhotoShop = new PhotoShop(myCanvas)
+const modificationsList = [document.getElementById("saturation"), document.getElementById("brightness"), document.getElementById("blur")]
+const modificationsBTNS = [saturationBTN, brightnessBTN, blurBTN]
 
-function open_close(obj)
+function open_closeModification(obj, objBTN)
+{
+    currentPhotoShop.cancelModification()
+    if(!obj.classList.contains("divClosed"))
+    {
+        obj.classList.add("divClosed")
+        objBTN.classList.add("toolBarBTNClosed")
+    }else{
+        modificationsList.forEach(mod => {
+            mod.classList.add("divClosed")
+        });
+        modificationsBTNS.forEach(mod => {
+            mod.classList.add("toolBarBTNClosed")
+        });
+        obj.classList.remove("divClosed")
+        objBTN.classList.remove("toolBarBTNClosed")
+    }
+
+}
+
+function open_close(obj, objBTN)
 {
     if(obj.classList.contains("divClosed"))
     {
         obj.classList.remove("divClosed")
+        objBTN.classList.remove("toolBarBTNClosed")
     }else
     {
         obj.classList.add("divClosed")
+        objBTN.classList.add("toolBarBTNClosed")
     }
 }
 

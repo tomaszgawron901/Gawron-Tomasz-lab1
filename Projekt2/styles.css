@@ -46,8 +46,12 @@ canvas{
 .toolBarBTN{
     width: 100%;
     height: 50px;
-    background-color: blueviolet;
+    background-color: rgb(84, 28, 136);
     color: white;
+}
+
+.toolBarBTNClosed{
+    background-color: blueviolet;
 }
 
 .toolBarOptions{
