@@ -117,12 +117,30 @@ cancelModificationsBTN.addEventListener('click', ()=>{
 applyModificationsBTN.addEventListener('click', ()=>{
     currentPhotoShop.applyModification()
 })
-
+    // Brightness section
+brightnessBTN.addEventListener('click',()=>{open_close(document.getElementById("brightness"))})
 
 
 
 
 // Mouse section
+
+workSpace.addEventListener("mousedown", (e)=>{
+    currentPhotoShop.cancelModification()
+    if(currentPhotoShop.currentBrush != null)
+    {
+        
+        Brush.painting = true
+        let x = e.target.offsetLeft-currentPhotoShop.myCanvas.offsetLeft+e.layerX+e.target.scrollTop
+        let y = e.target.offsetTop-currentPhotoShop.myCanvas.offsetTop+e.layerY+e.target.scrollLeft
+        currentPhotoShop.currentBrush.start(currentPhotoShop.copyCanvasData())
+        currentPhotoShop.currentBrush.addPoint({
+            x: x,
+            y: y
+        })
+        currentPhotoShop.currentBrush.paint()
+    }
+})
 
 window.addEventListener('mouseup', ()=>{
     
@@ -132,13 +150,13 @@ window.addEventListener('mouseup', ()=>{
         currentPhotoShop.currentBrush.stop()
     }
 })
-window.addEventListener('mousemove', (e)=>{
-
+workSpace.addEventListener('mousemove', (e)=>{
     
     if(currentPhotoShop.currentBrush != null && Brush.painting)
     {
-        let x = e.clientX - currentPhotoShop.myCanvas.offsetLeft
-        let y = e.clientY - currentPhotoShop.myCanvas.offsetTop
+
+        let x = e.target.offsetLeft-currentPhotoShop.myCanvas.offsetLeft+e.offsetX+e.target.scrollLeft
+        let y = e.target.offsetTop-currentPhotoShop.myCanvas.offsetTop+e.offsetY+e.target.scrollTop
         currentPhotoShop.currentBrush.addPoint({
             x: x,
             y: y

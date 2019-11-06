@@ -63,27 +63,16 @@ class PhotoShop
         this.myCanvas.id = "myCanvas"
         this.myCanvas.setAttribute("width", width)
         this.myCanvas.setAttribute("height", height)
-        this.myCanvas.setAttribute("style", "border:1px solid #000000;")
         this.ctx = this.myCanvas.getContext('2d')
-        this.myCanvas.addEventListener("mousedown", (e)=>{
-            this.cancelModification()
-            if(currentPhotoShop.currentBrush != null)
-            {
-                Brush.painting = true
-                let x = e.clientX - this.myCanvas.offsetLeft
-                let y = e.clientY - this.myCanvas.offsetTop
-                currentPhotoShop.currentBrush.start(currentPhotoShop.copyCanvasData())
-                currentPhotoShop.currentBrush.addPoint({
-                    x: x,
-                    y: y
-                })
-                currentPhotoShop.currentBrush.paint()
-            }
-        })
         if(this.currentBrush != null)
             this.currentBrush.setCTX(this.ctx)
         workSpace.innerHTML = ""
         workSpace.appendChild(this.myCanvas)
+        this.myCanvas.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });
         
     }
 
