@@ -37,4 +37,4 @@ const saturationBTN = document.getElementById("saturationBTN")
     const brightnessInput = document.getElementById("brightnessInput")
     // Blur section
     const blurBTN = document.getElementById("blurBTN")
-    const blurInput = document.getElementById("blurInput")
+    const gausianBlurInput = document.getElementById("gausianBlurInput")

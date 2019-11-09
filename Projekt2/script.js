@@ -48,3 +48,8 @@ function RGB_toString(RGB)
 {
     return "rgba("+RGB[0]+", "+RGB[1]+", "+RGB[2]+", "+RGB[3]+")"
 }
+
+//currentPhotoShop.currentModification = new ChannelBlurHorizontally(currentPhotoShop.ctx)
+// currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+//currentPhotoShop.currentModification.lenghts = [6,1,1,1]
+// currentPhotoShop.currentModification.demo()

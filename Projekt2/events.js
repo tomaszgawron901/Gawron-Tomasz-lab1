@@ -130,7 +130,7 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
     })
     // Blur section
     blurBTN.addEventListener('click', ()=>{open_closeModification(document.getElementById("blur"), blurBTN)})
-    blurInput.addEventListener('input', (e)=>{
+    gausianBlurInput.addEventListener('input', (e)=>{
         if(currentPhotoShop.currentModification == null)
         {
             currentPhotoShop.currentModification = new Gaussian_Blur(currentPhotoShop.ctx)
@@ -174,7 +174,3 @@ workSpace.addEventListener('mousemove', (e)=>{
         currentPhotoShop.currentBrush.paint()
     }
 })
-
-
-
-
