@@ -82,7 +82,10 @@ brushBTN.addEventListener('click', function(){open_close(document.getElementById
 // Modifications section
 modificationsBTN.addEventListener('click', function(){open_close(document.getElementById("modifications"), modificationsBTN)})
     //Saturation section
-    saturationBTN.addEventListener('click', function(){open_closeModification(document.getElementById("saturation"), saturationBTN)})
+    saturationBTN.addEventListener('click', function(){
+        open_closeOther(document.getElementById("saturation"), modificationsList, "divClosed")
+        open_closeOther(saturationBTN, modificationsBTNS, "toolBarBTNClosed")
+    })
     redSaturationInput.addEventListener('input', (e)=>{
         if(currentPhotoShop.currentModification == null)
         {
@@ -118,7 +121,10 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
         currentPhotoShop.applyModification()
     })
     // Brightness section
-    brightnessBTN.addEventListener('click',()=>{open_closeModification(document.getElementById("brightness"), brightnessBTN)})
+    brightnessBTN.addEventListener('click',()=>{
+        open_closeOther(document.getElementById("brightness"), modificationsList, "divClosed")
+        open_closeOther(brightnessBTN, modificationsBTNS, "toolBarBTNClosed")
+    })
     brightnessInput.addEventListener('input', (e)=>{
         if(currentPhotoShop.currentModification == null)
         {
@@ -129,16 +135,68 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
         currentPhotoShop.currentModification.demo()
     })
     // Blur section
-    blurBTN.addEventListener('click', ()=>{open_closeModification(document.getElementById("blur"), blurBTN)})
-    gausianBlurInput.addEventListener('input', (e)=>{
-        if(currentPhotoShop.currentModification == null)
-        {
-            currentPhotoShop.currentModification = new Gaussian_Blur(currentPhotoShop.ctx)
-            currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
-        }
-        currentPhotoShop.currentModification.raiant = parseInt(e.target.value)
-        currentPhotoShop.currentModification.demo()
+    blurBTN.addEventListener('click', ()=>{
+        open_closeOther(document.getElementById("blur"), modificationsList, "divClosed")
+        open_closeOther(blurBTN, modificationsBTNS, "toolBarBTNClosed")
     })
+        // Gaussian section
+        gausianBlurInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Gaussian_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.raiant = parseInt(e.target.value)
+            currentPhotoShop.currentModification.demo()
+        })
+        selectBlurType.addEventListener('change', ()=>{
+            switch(selectBlurType.value)
+            {
+                case "Gaussian_Blur":
+                    open_closeOther(document.getElementById("gaussianBlur"), blurList,  "divClosed")
+                    break
+                case "Channel_Blur":
+                    open_closeOther(document.getElementById("channelBlur"), blurList,  "divClosed")
+                    break
+            }
+        })
+        // Channel section
+        blurAngleInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Channel_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.angle = parseInt(e.target.value)/180*Math.PI
+            currentPhotoShop.currentModification.demo()
+        })
+        redChannelInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Channel_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.lenghts[0] = parseInt(e.target.value)
+            currentPhotoShop.currentModification.demo()
+        })
+        greenChannelInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Channel_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.lenghts[1] = parseInt(e.target.value)
+            currentPhotoShop.currentModification.demo()
+        })
+        blueChannelInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Channel_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.lenghts[2] = parseInt(e.target.value)
+            currentPhotoShop.currentModification.demo()
+        })
 
 // Mouse section
 

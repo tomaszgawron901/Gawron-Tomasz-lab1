@@ -90,19 +90,31 @@
                                             <option value="Channel_Blur">Channel Blur</option>
                                     </select>
                                 </div>
-                                <div id="gaussianBlur" class="margin">
-                                    <a>Radiant: </a>
-                                    <input type="range" id="gausianBlurInput" class="toolBarOptions" style="width: 98%;"  min="1" max="10" step="1" value="1">
+                                <div id="gaussianBlur" class="toolBarOptions">
+                                    <div class="margin">
+                                        <a>Radiant: </a>
+                                        <input type="range" id="gausianBlurInput" class="toolBarOptions" style="width: 98%;"  min="1" max="10" step="1" value="1">
+                                    </div>
                                 </div>
-                                <div id="channelBlur">
-                                        <a>Angle: </a>
-                                        <input type="range" id="gausianAngleInput" class="toolBarOptions" style="width: 98%;"  min="1" max="10" step="1" value="1">
-                                        <a>Red Channel: </a>
-                                        <input type="range" id="redChannelInput" class="toolBarOptions slider" style="width: 98%; background: red;"  min="1" max="100" step="1" value="1">
-                                        <a>Green Channel: </a>
-                                        <input type="range" id="greenChannelInput" class="toolBarOptions slider" style="width: 98%; background: rgb(0, 255, 0);"  min="1" max="100" step="1" value="1">
-                                        <a>Blue Channel: </a>
-                                        <input type="range" id="blueChannelInput" class="toolBarOptions slider" style="width: 98%; background: blue;"  min="1" max="100" step="1" value="1">
+                                <div id="channelBlur" class="divClosed toolBarOptions">
+                                        <div class="margin">
+                                            <a>Angle: </a>
+                                            <input type="range" id="blurAngleInput" class="toolBarOptions" style="width: 98%;"  min="0" max="180" step="5" value="0">
+                                            
+                                        </div>
+                                        <div class="margin">
+                                            <a>Red Channel: </a>
+                                            <input type="range" id="redChannelInput" class="toolBarOptions slider" style="width: 98%; background: red;"  min="1" max="100" step="1" value="1">
+                                        </div>
+                                        <div class="margin">
+                                            <a>Green Channel: </a>
+                                            <input type="range" id="greenChannelInput" class="toolBarOptions slider" style="width: 98%; background: rgb(0, 255, 0);"  min="1" max="100" step="1" value="1">
+                                        </div>
+                                        <div class="margin">
+                                            <a>Blue Channel: </a>
+                                            <input type="range" id="blueChannelInput" class="toolBarOptions slider" style="width: 98%; background: blue;"  min="1" max="100" step="1" value="1">
+                                        </div>
+
                                 </div>
                             </div>
                     </div>

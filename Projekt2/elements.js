@@ -37,4 +37,11 @@ const saturationBTN = document.getElementById("saturationBTN")
     const brightnessInput = document.getElementById("brightnessInput")
     // Blur section
     const blurBTN = document.getElementById("blurBTN")
-    const gausianBlurInput = document.getElementById("gausianBlurInput")
+    const selectBlurType = document.getElementById("selectBlurType")
+        // gaussian section
+        const gausianBlurInput = document.getElementById("gausianBlurInput")
+        // channel blur section
+        const blurAngleInput = document.getElementById("blurAngleInput")
+        const redChannelInput = document.getElementById("redChannelInput")
+        const greenChannelInput = document.getElementById("greenChannelInput")
+        const blueChannelInput = document.getElementById("blueChannelInput")

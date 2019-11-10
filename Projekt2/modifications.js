@@ -239,6 +239,9 @@ class Channel_Blur extends Blur
 
     reset()
     {
+        redChannelInput.value = 1
+        greenChannelInput.value = 1
+        blueChannelInput.value = 1
         this.lenghts = [1,1,1,1]
         this.angle = 0
     }
@@ -365,7 +368,7 @@ class Channel_Blur extends Blur
     {
         let blurpixelX = this.directionX+x
         let blurpixelY = this.directionY+y
-        if(x+1>=0 && x+1<this.copy.width)
+        if(x+this.directionX>=0 && x+this.directionX<this.copy.width)
         {
 
             
@@ -381,8 +384,8 @@ class Channel_Blur extends Blur
                 }
 
 
-                currentX = parseInt(this.lenghts[j]*this.directionX+blurpixelX)
-                currentY = parseInt(this.lenghts[j]*this.directionY+blurpixelY)
+                currentX = parseInt((this.lenghts[j]-1)*this.directionX+blurpixelX)
+                currentY = parseInt((this.lenghts[j]-1)*this.directionY+blurpixelY)
                 if(currentX>=0 && currentX<this.copy.width && currentY>=0 && currentY<this.copy.height)
                 {
                     let i = (currentY)*this.copy.width*4+(currentX)*4
