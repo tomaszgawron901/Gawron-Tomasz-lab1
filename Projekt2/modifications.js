@@ -242,6 +242,8 @@ class Channel_Blur extends Blur
         redChannelInput.value = 1
         greenChannelInput.value = 1
         blueChannelInput.value = 1
+        opacityChannelInput.value = 1
+        blurAngleInput.value = 0
         this.lenghts = [1,1,1,1]
         this.angle = 0
     }
@@ -252,6 +254,7 @@ class Channel_Blur extends Blur
         {
             this.directionX = 1
             this.directionY = 0
+            this.angle = 0
         }else if(this.angle==Math.PI/2)
         {
             this.directionX = 0
@@ -368,7 +371,7 @@ class Channel_Blur extends Blur
     {
         let blurpixelX = this.directionX+x
         let blurpixelY = this.directionY+y
-        if(x+this.directionX>=0 && x+this.directionX<this.copy.width)
+        if(x+this.directionX>=0 && x+this.directionX<this.copy.width && y+this.directionY>=0 && y+this.directionY<this.copy.height )
         {
 
             

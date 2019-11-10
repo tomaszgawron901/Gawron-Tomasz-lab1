@@ -197,6 +197,15 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
             currentPhotoShop.currentModification.lenghts[2] = parseInt(e.target.value)
             currentPhotoShop.currentModification.demo()
         })
+        opacityChannelInput.addEventListener('input', (e)=>{
+            if(currentPhotoShop.currentModification == null)
+            {
+                currentPhotoShop.currentModification = new Channel_Blur(currentPhotoShop.ctx)
+                currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+            }
+            currentPhotoShop.currentModification.lenghts[3] = parseInt(e.target.value)
+            currentPhotoShop.currentModification.demo()
+        })
 
 // Mouse section
 
