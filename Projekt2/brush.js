@@ -64,10 +64,51 @@ class Inker extends Brush
 
 class QuillPen extends Brush
 {
-    constructor(size, color=[0, 0, 0, 1])
+    constructor(size, color=[0, 0, 0, 1], PS)
     {
-        super(size, color)
+        super(size, color, PS)
     }
+
+    paint()
+    {
+        if(this.points.length > 1)
+        {
+            this.ctx.beginPath()
+            let i = this.points.length-1
+            let p11 = {x: this.points[i-1].x, y: this.points[i-1].y+this.size}
+            let p12 = {x: this.points[i-1].x, y: this.points[i-1].y}
+
+            let p21 = {x: this.points[i].x, y: this.points[i].y+this.size}
+            let p22 = {x: this.points[i].x, y: this.points[i].y}
+            if(this.points[i-1].x == this.points[i].x)
+            {
+                this.ctx.strokeStyle = RGB_toString(this.color)
+                this.ctx.lineWidth = 1
+                this.ctx.moveTo(this.points[i-1].x, this.points[i-1].y)
+                this.ctx.lineTo(this.points[i].x, this.points[i].y+this.size)
+                this.ctx.stroke();
+            }
+            else
+            {
+                this.ctx.fillStyle = RGB_toString(this.color)
+                this.drawOnePart(p11, p12, p22, p21)
+                this.ctx.fill();
+            }
+            this.ctx.closePath()
+        }
+
+    }
+
+    drawOnePart(p1, p2, p3, p4)
+    {
+        this.ctx.moveTo(p1.x, p1.y)
+        this.ctx.lineTo(p2.x, p2.y)
+        this.ctx.lineTo(p3.x, p3.y)
+        this.ctx.lineTo(p4.x, p4.y)
+        this.ctx.lineTo(p1.x, p1.y)
+    }
+
+    
 
 }
 

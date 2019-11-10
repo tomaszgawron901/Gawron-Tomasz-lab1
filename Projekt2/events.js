@@ -75,6 +75,9 @@ brushBTN.addEventListener('click', function(){open_close(document.getElementById
             case "inker":
                 currentPhotoShop.currentBrush = new Inker(Brush.brushSize, Brush.brushColor, currentPhotoShop.ctx)
                 break
+            case "quillPen":
+                currentPhotoShop.currentBrush = new QuillPen(Brush.brushSize, Brush.brushColor, currentPhotoShop.ctx)
+                break
         }
     })
 
