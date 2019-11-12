@@ -46,3 +46,6 @@ const saturationBTN = document.getElementById("saturationBTN")
         const greenChannelInput = document.getElementById("greenChannelInput")
         const blueChannelInput = document.getElementById("blueChannelInput")
         const opacityChannelInput = document.getElementById("opacityChannelInput")
+    //Contrast section
+    const contrastBTN = document.getElementById("contrastBTN")
+    const contrastInput = document.getElementById("contrastInput")

@@ -209,6 +209,20 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
             currentPhotoShop.currentModification.lenghts[3] = parseInt(e.target.value)
             currentPhotoShop.currentModification.demo()
         })
+    // Contrast section
+    contrastBTN.addEventListener('click', ()=>{
+        open_closeOther(document.getElementById("contrast"), modificationsList, "divClosed")
+        open_closeOther(contrastBTN, modificationsBTNS, "toolBarBTNClosed")
+    })
+    contrastInput.addEventListener('input', (e)=>{
+        if(currentPhotoShop.currentModification == null)
+        {
+            currentPhotoShop.currentModification = new Contrast(currentPhotoShop.ctx)
+            currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+        }
+        currentPhotoShop.currentModification.value = parseFloat(e.target.value)
+        currentPhotoShop.currentModification.demo()
+    })
 
 // Mouse section
 

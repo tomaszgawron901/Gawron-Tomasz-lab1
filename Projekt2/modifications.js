@@ -404,3 +404,31 @@ class Channel_Blur extends Blur
 
     }
 }
+
+class Contrast extends Modifications
+{
+    constructor(ctx)
+    {
+        super(ctx)
+        this.value = 1
+    }
+
+    reset()
+    {
+        this.value = 1
+        contrastInput.value = 1
+    }
+
+    demo()
+    {
+        const canvasData = new ImageData(new Uint8ClampedArray(this.copy.data), this.copy.width, this.copy.height)
+        for(let i =0; i< canvasData.data.length; i+=4)
+        {
+            for(let l =0; l<3; l++)
+            {
+                canvasData.data[i+l] = parseInt(this.value*(canvasData.data[i+l]-128)+128)
+            }
+        }
+        this.ctx.putImageData(canvasData, 0, 0)
+    }
+}
