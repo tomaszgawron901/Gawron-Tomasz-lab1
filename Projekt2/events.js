@@ -223,6 +223,21 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
         currentPhotoShop.currentModification.value = parseFloat(e.target.value)
         currentPhotoShop.currentModification.demo()
     })
+    //Sepia filter section
+    sepiaBTN.addEventListener('click', ()=>{
+        open_closeOther(document.getElementById("sepia"), modificationsList, "divClosed")
+        open_closeOther(sepiaBTN, modificationsBTNS, "toolBarBTNClosed")
+    })
+    sepiaInput.addEventListener('input', (e)=>{
+        if(currentPhotoShop.currentModification == null)
+        {
+            currentPhotoShop.currentModification = new Sepia(currentPhotoShop.ctx)
+            currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+        }
+        currentPhotoShop.currentModification.value = parseFloat(e.target.value)
+        currentPhotoShop.currentModification.demo()
+    })
+
 
 // Mouse section
 

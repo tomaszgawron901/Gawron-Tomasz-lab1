@@ -432,3 +432,33 @@ class Contrast extends Modifications
         this.ctx.putImageData(canvasData, 0, 0)
     }
 }
+
+class Sepia extends Modifications{
+    constructor(ctx)
+    {
+        super(ctx)
+        this.value = 0
+    }
+
+    reset()
+    {
+        this.value = 0
+        sepiaInput.value = 0
+    }
+
+    demo()
+    {
+        const canvasData = new ImageData(new Uint8ClampedArray(this.copy.data), this.copy.width, this.copy.height)
+        for(let i =0; i< canvasData.data.length; i+=4)
+        {
+            let red = (1-0.607*this.value)*canvasData.data[i] + 0.769*this.value*canvasData.data[i+1] + 0.189*this.value*canvasData.data[i+2]
+            let green = 0.349*this.value*canvasData.data[i] + (1-0.314*this.value)*canvasData.data[i+1] + 0.168*this.value*canvasData.data[i+2]
+            let blue = 0.272*this.value*canvasData.data[i] + 0.534*this.value*canvasData.data[i+1]+ (1-0.869*this.value)*canvasData.data[i+2]
+            canvasData.data[i] = parseInt(red)
+            canvasData.data[i+1] = parseInt(green)
+            canvasData.data[i+2] = parseInt(blue)
+        }
+        this.ctx.putImageData(canvasData, 0, 0)
+    }
+
+}

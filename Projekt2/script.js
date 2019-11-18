@@ -1,6 +1,18 @@
 const currentPhotoShop = new PhotoShop(myCanvas)
-const modificationsList = [document.getElementById("saturation"), document.getElementById("brightness"), document.getElementById("blur"), document.getElementById("contrast")]
-const modificationsBTNS = [saturationBTN, brightnessBTN, blurBTN, contrastBTN]
+const modificationsList = [
+    document.getElementById("saturation"),
+    document.getElementById("brightness"),
+    document.getElementById("blur"),
+    document.getElementById("contrast"),
+    document.getElementById("sepia")
+]
+const modificationsBTNS = [
+    saturationBTN, 
+    brightnessBTN, 
+    blurBTN, 
+    contrastBTN,
+    sepiaBTN
+]
 
 const blurList = [document.getElementById("gaussianBlur"), document.getElementById("channelBlur")]
 

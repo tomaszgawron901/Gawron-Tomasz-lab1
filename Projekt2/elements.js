@@ -49,3 +49,6 @@ const saturationBTN = document.getElementById("saturationBTN")
     //Contrast section
     const contrastBTN = document.getElementById("contrastBTN")
     const contrastInput = document.getElementById("contrastInput")
+    // Sepia section
+    const sepiaBTN = document.getElementById("sepiaBTN")
+    const sepiaInput = document.getElementById("sepiaInput")    
