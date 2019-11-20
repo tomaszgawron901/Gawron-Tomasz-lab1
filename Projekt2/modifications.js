@@ -462,3 +462,52 @@ class Sepia extends Modifications{
     }
 
 }
+
+class CutColor extends Modifications{
+    constructor(ctx)
+    {
+        super(ctx)
+        this.color = [0, 0, 0, 0]
+        this.range = 0
+    }
+
+    reset()
+    {
+        this.color = [0, 0, 0, 0]
+        this.range = 0
+        cutColorInput1.value = "#000000"
+        cutColorRangeInput.value = 0;
+    }
+
+
+    demo()
+    {
+        const canvasData = new ImageData(new Uint8ClampedArray(this.copy.data), this.copy.width, this.copy.height)
+        for(let i =0; i< canvasData.data.length; i+=4)
+        {
+            let toCut = true
+            for(let j =0; j<3; j++)
+            {
+                if(canvasData.data[i+j]<this.color[j]-this.range || canvasData.data[i+j]>this.color[j]+this.range)
+                {
+                    toCut = false
+                    break
+                }
+            }
+            if(toCut)
+            {
+                this.cutPixel(i, canvasData)
+            }
+        }
+        this.ctx.putImageData(canvasData, 0, 0)
+    }
+
+    cutPixel(i, canvasData)
+    {
+        for(let j =0; j <4; j++)
+        {
+            canvasData.data[i+j] = 0
+        }
+    }
+
+}

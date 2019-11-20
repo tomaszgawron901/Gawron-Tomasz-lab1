@@ -51,4 +51,8 @@ const saturationBTN = document.getElementById("saturationBTN")
     const contrastInput = document.getElementById("contrastInput")
     // Sepia section
     const sepiaBTN = document.getElementById("sepiaBTN")
-    const sepiaInput = document.getElementById("sepiaInput")    
+    const sepiaInput = document.getElementById("sepiaInput")   
+    // Cut Color Section
+    const CutColorBTN = document.getElementById("CutColorBTN")
+    const cutColorInput1 = document.getElementById("cutColorInput1");
+    const cutColorRangeInput = document.getElementById("cutColorRangeInput");

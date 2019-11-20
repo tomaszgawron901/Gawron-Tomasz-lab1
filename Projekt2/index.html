@@ -15,8 +15,8 @@
                 <div id="file" class="divClosed toolBarOptions">
                     
                     <div class="margin">
-                        <input type="number" id="widthInput" placeholder="width" min="1" value="600">
-                        <input type="number" id="heightInput" placeholder="height" min="1" value="400">
+                        <input type="number" id="widthInput" placeholder="width" min="1" value="900">
+                        <input type="number" id="heightInput" placeholder="height" min="1" value="600">
                     </div>
                     <button id="newCanvasBtn" class="margin">New Canvas</button>
                     <button id="openImageBtn" class="margin">Open Image</button>
@@ -140,6 +140,18 @@
                                 <a>Value: </a>
                                 <input type="range" id="sepiaInput" class="toolBarOptions" style="width: 98%;"  min="0" max="1" step="0.01" value="0">
                             </div>
+                        </div>
+                    </div>
+
+                    <div id="CutColorContainer" class="toolContainer">
+                        <button id="CutColorBTN" class="toolBarBTNClosed toolBarBTN">CUT COLOR</button>
+                        <div id="cutColor" class="divClosed toolBarOptions">
+                                <input type="color" id="cutColorInput1" class="toolBarOptions"  style="width: 98%;">
+                                <div class="margin">
+                                        <a>Range: </a>
+                                        <input type="range" id="cutColorRangeInput" class="toolBarOptions" style="width: 98%;"  min="0" max="255" step="1" value="0">
+                                    </div>
+
                         </div>
                     </div>
 

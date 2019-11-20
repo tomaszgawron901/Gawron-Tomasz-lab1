@@ -4,14 +4,16 @@ const modificationsList = [
     document.getElementById("brightness"),
     document.getElementById("blur"),
     document.getElementById("contrast"),
-    document.getElementById("sepia")
+    document.getElementById("sepia"),
+    document.getElementById("cutColor")
 ]
 const modificationsBTNS = [
     saturationBTN, 
     brightnessBTN, 
     blurBTN, 
     contrastBTN,
-    sepiaBTN
+    sepiaBTN,
+    CutColorBTN
 ]
 
 const blurList = [document.getElementById("gaussianBlur"), document.getElementById("channelBlur")]

@@ -237,6 +237,21 @@ modificationsBTN.addEventListener('click', function(){open_close(document.getEle
         currentPhotoShop.currentModification.value = parseFloat(e.target.value)
         currentPhotoShop.currentModification.demo()
     })
+    // Cut Color Section
+    CutColorBTN.addEventListener('click', ()=>{
+        open_closeOther(document.getElementById("cutColor"), modificationsList, "divClosed")
+        open_closeOther(CutColorBTN, modificationsBTNS, "toolBarBTNClosed")
+    })
+    cutColorRangeInput.addEventListener('input', (e)=>{
+        if(currentPhotoShop.currentModification == null)
+        {
+            currentPhotoShop.currentModification = new CutColor(currentPhotoShop.ctx)
+            currentPhotoShop.currentModification.start(currentPhotoShop.copyCanvasData())
+        }
+        currentPhotoShop.currentModification.color = HEX_to_RGB(cutColorInput1.value)
+        currentPhotoShop.currentModification.range = parseInt(e.target.value)
+        currentPhotoShop.currentModification.demo()
+    })
 
 
 // Mouse section

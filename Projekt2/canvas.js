@@ -6,7 +6,7 @@ class PhotoShop
         this.ctx = this.myCanvas.getContext('2d')
         this.currentBrush = null
         this.currentModification = null
-        this.newCanvas(600, 400)
+        this.newCanvas(900, 600)
     }
 
     copyCanvasData() {
@@ -54,10 +54,10 @@ class PhotoShop
     {
         this.cancelModification()
         if(width < 1 || isNaN(width)){
-            width = 600
+            width = 900
         }
         if(height < 1 || isNaN(height)){
-            height = 400
+            height = 600
         }
         this.myCanvas = document.createElement("CANVAS")
         this.myCanvas.id = "myCanvas"
