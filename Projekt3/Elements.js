@@ -1,0 +1,1 @@
+const boardSpace = document.getElementById("boardSpace")
