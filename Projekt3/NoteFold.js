@@ -55,7 +55,6 @@ class NoteFold{
         this.fold.style.width = this.parent.clientHeight+"px"
         this.fold.style.top = this.top + "px"
         this.fold.style.left = this.left + "px"
-        //this.parent.style.borderBottomRightRadius = `${this.parent.clientWidth-this.left+20}px ${this.parent.clientHeight-this.top+20}px`
     }
 
     moveFold(x, y)
@@ -81,7 +80,11 @@ class NoteFold{
 
     dragStart()
     {
-        if(Board.dragging == null) Board.dragging = this
+        if(Board.dragging == null){
+            Board.dragging = this
+            this.parent.style.zIndex = "1"         
+        }
+
     }
 
     dragMove(x, y)
@@ -104,6 +107,7 @@ class NoteFold{
     dragEnd()
     {
         this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
+        this.parent.style.zIndex = "0"
         NoteFold.dragging = null
     }
 }

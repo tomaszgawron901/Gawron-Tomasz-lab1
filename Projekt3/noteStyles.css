@@ -4,6 +4,7 @@ div{
 
 body{
     margin: 0;
+    overflow: hidden;
 }
 
 .insideNote{
@@ -12,6 +13,7 @@ body{
 
 /* CONTAINER */
 .noteContainer{
+    position: absolute;
     width: min-content;
     display: flex;
     flex-direction: column;
@@ -21,13 +23,11 @@ body{
 .fold{
     position: relative;
     border: solid black 1px;
-    box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.199);
+    box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.1);
     transform-origin: top left;
 }
 
-.fold:hover{
-    cursor: grab;
-}
+
 
 /* HEADER */
 .noteHeader{
