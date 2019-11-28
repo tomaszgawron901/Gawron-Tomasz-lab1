@@ -1,7 +1,8 @@
 class NoteFold{
     constructor(parent)
     {
-        this.parent = parent
+        this.noteDiv = parent
+        this.parent = this.noteDiv.noteContainer
         this.defaultTopPosition = this.parent.clientHeight-30
         this.defaultLeftPosition = this.parent.clientWidth-30
         this.top = this.defaultTopPosition
@@ -104,10 +105,36 @@ class NoteFold{
         }
     }
 
-    dragEnd()
+    dragEnd(board)
     {
-        this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
-        this.parent.style.zIndex = "0"
-        NoteFold.dragging = null
+        if(this.top < 0 || this.left < 0)
+        {
+            board.removeNote(this.noteDiv.note)
+            this.startFadingAway()
+            board.saveNotes()
+        }
+        else{
+            this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
+            this.parent.style.zIndex = "0"
+            NoteFold.dragging = null            
+        }
+
+    }
+
+    startFadingAway()
+    {
+        this.parent.style.opacity = 1;
+        this.parent.setAttribute("pointer-events", "none")
+        this.interval = setInterval(()=>{
+            if(this.parent.style.opacity <= 0)
+            {
+                clearInterval(this.interval)
+                this.parent.style.visibility = "hidden"
+            }
+            else
+            {
+                this.parent.style.opacity -= 0.2
+            } 
+        }, 100);
     }
 }

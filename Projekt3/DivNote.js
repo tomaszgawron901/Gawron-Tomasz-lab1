@@ -21,7 +21,7 @@ class DivNote{
     {
         if(this.fold != null) return
 
-        this.fold = new NoteFold(this.noteContainer)
+        this.fold = new NoteFold(this)
         this.noteContainer.appendChild(this.fold.createDivFold(color))
     }
 
