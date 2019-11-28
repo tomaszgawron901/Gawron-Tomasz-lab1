@@ -83,7 +83,7 @@ class NoteFold{
     {
         if(Board.dragging == null){
             Board.dragging = this
-            this.parent.style.zIndex = "1"         
+            Board.moveTop(this.parent)         
         }
 
     }
@@ -115,7 +115,6 @@ class NoteFold{
         }
         else{
             this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
-            this.parent.style.zIndex = "0"
             NoteFold.dragging = null            
         }
 

@@ -1,8 +1,17 @@
 class Board{
     static dragging = null
+    static highestIndexZ = 0
+    static moveTop(element)
+    {
+        this.highestIndexZ += 1
+        element.style.zIndex = Board.highestIndexZ
+    }
+
+
     windowsMouseMove(e){
         if (Board.dragging == null) return
         Board.dragging.dragMove(e.clientX, e.clientY)
+        window.setAttribute("cursor", "grab")
     }
     windowsMouseUp(e){
         if (Board.dragging == null) return
@@ -15,7 +24,6 @@ class Board{
     {
         this.notesArray = []
         this.boardSpace = boardSpace
-
         window.addEventListener("mousemove", (e)=>{this.windowsMouseMove(e)})
         window.addEventListener("mouseup", (e)=>{this.windowsMouseUp(e)})
     }
@@ -67,6 +75,4 @@ class Board{
         }
 
     }
-
-
 }

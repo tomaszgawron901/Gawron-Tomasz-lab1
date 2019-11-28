@@ -10,9 +10,8 @@ class DivNote{
         this.noteContainer = document.createElement("DIV")
         this.noteContainer.classList.add("noteContainer")
         this.noteContainer.style.backgroundColor = `rgb(${this.note.color[0]}, ${this.note.color[1]}, ${this.note.color[2]})`
-        this.noteContainer.style.left = this.note.position.x+"px"
-        this.noteContainer.style.top = this.note.position.y+"px"
-        this.noteContainer.appendChild(this.createHeader())
+        this.updatePosition()
+        this.addHeader()
         this.noteContainer.appendChild(this.createMain())
         this.noteContainer.appendChild(this.createFooter())
     }
@@ -25,12 +24,10 @@ class DivNote{
         this.noteContainer.appendChild(this.fold.createDivFold(color))
     }
 
-    createHeader()
+    addHeader()
     {
-        this.header = document.createElement("DIV")
-        this.header.classList.add("noteHeader")
-        this.header.classList.add("insideNote")
-        return this.header
+        this.header = new NoteHeader(this)
+        this.noteContainer.appendChild(this.header.createDivHeader())
     }
 
     createMain()
@@ -58,7 +55,7 @@ class DivNote{
 
     updateHeader()
     {
-        this.header.innerHTML = this.note.title
+        this.header.update(this.note.title)
     }
 
     updateMain()
@@ -69,5 +66,11 @@ class DivNote{
     updateFooter()
     {
         this.footer.innerHTML = new Date(this.note.created).toLocaleDateString()
+    }
+
+    updatePosition()
+    {
+        this.noteContainer.style.left = this.note.position.x+"px"
+        this.noteContainer.style.top = this.note.position.y+"px"
     }
 }
