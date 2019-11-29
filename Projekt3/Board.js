@@ -11,12 +11,13 @@ class Board{
     windowsMouseMove(e){
         if (Board.dragging == null) return
         Board.dragging.dragMove(e.clientX, e.clientY)
-        window.setAttribute("cursor", "grab")
+        document.body.style.cursor = "grabbing"
     }
     windowsMouseUp(e){
         if (Board.dragging == null) return
         Board.dragging.dragEnd(this)
         Board.dragging = null
+        document.body.style.cursor = "auto"
     }
 
 

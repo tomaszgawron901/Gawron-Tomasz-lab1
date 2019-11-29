@@ -85,7 +85,7 @@ class NoteFold{
             Board.dragging = this
             Board.moveTop(this.parent)         
         }
-
+        
     }
 
     dragMove(x, y)

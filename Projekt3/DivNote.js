@@ -9,7 +9,8 @@ class DivNote{
     {
         this.noteContainer = document.createElement("DIV")
         this.noteContainer.classList.add("noteContainer")
-        this.noteContainer.style.backgroundColor = `rgb(${this.note.color[0]}, ${this.note.color[1]}, ${this.note.color[2]})`
+        this.noteContainer.style.backgroundColor = `rgb(${this.note.style.color[0]}, ${this.note.style.color[1]}, ${this.note.style.color[2]})`
+        this.noteContainer.style.zIndex = this.note.style.zIndex
         this.updatePosition()
         this.addHeader()
         this.noteContainer.appendChild(this.createMain())
@@ -70,7 +71,7 @@ class DivNote{
 
     updatePosition()
     {
-        this.noteContainer.style.left = this.note.position.x+"px"
-        this.noteContainer.style.top = this.note.position.y+"px"
+        this.noteContainer.style.left = this.note.style.position.x+"px"
+        this.noteContainer.style.top = this.note.style.position.y+"px"
     }
 }

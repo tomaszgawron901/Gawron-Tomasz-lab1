@@ -7,7 +7,7 @@ class NoteHeader{
 
     onDoubleClick()
     {
-
+        this.parent.style.transform = "scale(2)"
     }
 
     createDivHeader()
@@ -16,6 +16,7 @@ class NoteHeader{
         this.div.classList.add("noteHeader")
         this.div.classList.add("insideNote")
         this.div.addEventListener("mousedown",(e)=>{this.dragStart(e)})
+        this.div.addEventListener("dblclick", ()=>{this.onDoubleClick()})
         return this.div
     }
 
@@ -37,8 +38,8 @@ class NoteHeader{
     {
         if(Board.dragging == this)
         {
-            this.noteDiv.note.position.x = x-this.draggingStart.x
-            this.noteDiv.note.position.y = y-this.draggingStart.y
+            this.noteDiv.note.style.position.x = x-this.draggingStart.x
+            this.noteDiv.note.style.position.y = y-this.draggingStart.y
             this.noteDiv.updatePosition()
         }
     }
