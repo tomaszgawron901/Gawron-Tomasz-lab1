@@ -1,12 +1,14 @@
 class Board{
-    static dragging = null
-    static highestIndexZ = 0
-    static moveTop(element)
+    static dragging = null;
+    static editing = null;
+
+
+
+    moveTop(element)
     {
         this.highestIndexZ += 1
-        element.style.zIndex = Board.highestIndexZ
+        element.style.zIndex = this.highestIndexZ
     }
-
 
     windowsMouseMove(e){
         if (Board.dragging == null) return
@@ -21,17 +23,21 @@ class Board{
     }
 
 
-    constructor()
+    constructor(boardSpace, editSpace)
     {
         this.notesArray = []
         this.boardSpace = boardSpace
+        this.editSpace = editSpace
+        this.dragging = null
+        this.highestIndexZ = 0
         window.addEventListener("mousemove", (e)=>{this.windowsMouseMove(e)})
         window.addEventListener("mouseup", (e)=>{this.windowsMouseUp(e)})
+        
     }
 
     addNote(note)
     {
-        this.notesArray.push(note)
+        this.notesArray.push(new DivNote(note, this))
     }
 
     removeNote(note)
@@ -58,8 +64,8 @@ class Board{
     saveNotes()
     {
         let notes = []
-        this.notesArray.forEach(note => {
-            notes.push(Note.CloneNote(note))
+        this.notesArray.forEach(divNote => {
+            notes.push(divNote.note)
         });
         localStorage.setItem('notes', JSON.stringify(notes))
     }

@@ -1,34 +1,51 @@
 class DivNote{
-    constructor(note)
+    constructor(note, parent)
     {
         this.note = note
+        this.parent = parent
         this.createDiv()
+    }
+
+    moveTop()
+    {
+        this.parent.moveTop(this.Node)
     }
 
     createDiv()
     {
-        this.noteContainer = document.createElement("DIV")
-        this.noteContainer.classList.add("noteContainer")
-        this.noteContainer.style.backgroundColor = `rgb(${this.note.style.color[0]}, ${this.note.style.color[1]}, ${this.note.style.color[2]})`
-        this.noteContainer.style.zIndex = this.note.style.zIndex
+        this.Node = document.createElement("DIV")
+        this.Node.classList.add("noteContainer")
+        this.Node.style.backgroundColor = `rgb(${this.note.style.color[0]}, ${this.note.style.color[1]}, ${this.note.style.color[2]})`
+        this.Node.style.zIndex = this.note.style.zIndex
         this.updatePosition()
         this.addHeader()
-        this.noteContainer.appendChild(this.createMain())
-        this.noteContainer.appendChild(this.createFooter())
+        this.Node.addEventListener("dblclick", (e)=>{this.onDoubleClick(); console.log(e);
+        })
+        this.Node.appendChild(this.createMain())
+        this.Node.appendChild(this.createFooter())
     }
+
+    display(boardSpace)
+    {
+      if(this.Node == null) this.createDiv()
+      boardSpace.appendChild(this.Node)
+      this.update()
+      this.addFold(this.note.style.color)
+    }
+
 
     addFold(color)
     {
         if(this.fold != null) return
 
         this.fold = new NoteFold(this)
-        this.noteContainer.appendChild(this.fold.createDivFold(color))
+        this.Node.appendChild(this.fold.createDivFold(color))
     }
 
     addHeader()
     {
         this.header = new NoteHeader(this)
-        this.noteContainer.appendChild(this.header.createDivHeader())
+        this.Node.appendChild(this.header.createDivHeader())
     }
 
     createMain()
@@ -71,7 +88,22 @@ class DivNote{
 
     updatePosition()
     {
-        this.noteContainer.style.left = this.note.style.position.x+"px"
-        this.noteContainer.style.top = this.note.style.position.y+"px"
+        this.Node.style.left = this.note.style.position.x+"px"
+        this.Node.style.top = this.note.style.position.y+"px"
+    }
+
+
+    onDoubleClick()
+    {
+        if(this.editing == null)
+        {
+            this.editing = new NoteEdition(this, board)
+            this.editing.display()            
+        }
+        else
+        {
+            this.editing.exitEdition()
+            this.editing = null
+        }
     }
 }

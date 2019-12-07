@@ -15,18 +15,4 @@ class Note {
       this.pinned = false
       this.style = style
     }
-
-    display(boardSpace)
-    {
-      if(this.div == null) this.createDivNote()
-      boardSpace.appendChild(this.div.noteContainer)
-      this.div.update()
-      this.div.addFold(this.style.color)
-        //this.div.noteContainer.appendChild(this.div.createFold())
-    }
-
-    createDivNote()
-    {
-      this.div = new DivNote(this)
-    }
 }

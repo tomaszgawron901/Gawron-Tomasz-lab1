@@ -1,35 +1,33 @@
 class NoteHeader{
     constructor(parent)
     {
-        this.noteDiv = parent
-        this.parent = this.noteDiv.noteContainer
+        this.parent = parent
     }
 
-    onDoubleClick()
+    moveTop()
     {
-        this.parent.style.transform = "scale(2)"
+        this.parent.moveTop()
     }
 
     createDivHeader()
     {
-        this.div = document.createElement("DIV")
-        this.div.classList.add("noteHeader")
-        this.div.classList.add("insideNote")
-        this.div.addEventListener("mousedown",(e)=>{this.dragStart(e)})
-        this.div.addEventListener("dblclick", ()=>{this.onDoubleClick()})
-        return this.div
+        this.Node = document.createElement("DIV")
+        this.Node.classList.add("noteHeader")
+        this.Node.classList.add("insideNote")
+        this.Node.addEventListener("mousedown",(e)=>{this.dragStart(e)})
+        return this.Node
     }
 
     update(value)
     {
-        this.div.innerHTML = value
+        this.Node.innerHTML = value
     }
 
     dragStart(e)
     {
         if(Board.dragging == null){
             Board.dragging = this
-            Board.moveTop(this.parent)
+            this.moveTop()
             this.draggingStart = {x: e.layerX, y: e.layerY}            
         }
     }
@@ -38,16 +36,16 @@ class NoteHeader{
     {
         if(Board.dragging == this)
         {
-            this.noteDiv.note.style.position.x = x-this.draggingStart.x
-            this.noteDiv.note.style.position.y = y-this.draggingStart.y
-            this.noteDiv.updatePosition()
+            this.parent.note.style.position.x = x-this.draggingStart.x
+            this.parent.note.style.position.y = y-this.draggingStart.y
+            this.parent.updatePosition()
         }
     }
 
     dragEnd(board)
     {
         board.saveNotes()
-        NoteFold.dragging = null            
+        Board.dragging = null            
 
     }
 }

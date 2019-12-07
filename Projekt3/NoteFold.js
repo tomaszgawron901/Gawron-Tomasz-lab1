@@ -1,35 +1,39 @@
 class NoteFold{
     constructor(parent)
     {
-        this.noteDiv = parent
-        this.parent = this.noteDiv.noteContainer
-        this.defaultTopPosition = this.parent.clientHeight-30
-        this.defaultLeftPosition = this.parent.clientWidth-30
+        this.parent = parent
+        this.defaultTopPosition = this.parent.Node.clientHeight-30
+        this.defaultLeftPosition = this.parent.Node.clientWidth-30
         this.top = this.defaultTopPosition
         this.left = this.defaultLeftPosition
     }
 
     createDivFold(color)
     {
-        this.fold = document.createElement("DIV")
-        this.fold.style.position = "absolute"
-        this.fold.classList.add("fold")
+        this.Node = document.createElement("DIV")
+        this.Node.style.position = "absolute"
+        this.Node.classList.add("fold")
         this.angle = this.calculateAngle()
         this.rotate(this.angle)
         this.cutCorner(this.angle)
         this.updateFold()
         this.updateColor(color)
 
-        this.fold.addEventListener("mousedown",()=>{this.dragStart()})
+        this.Node.addEventListener("mousedown",()=>{this.dragStart()})
 
 
-        return this.fold
+        return this.Node
+    }
+
+    moveTop()
+    {
+        this.parent.moveTop();
     }
 
     calculateAngle()
     {
-        let x = this.parent.clientWidth - this.left
-        let y = this.parent.clientHeight - this.top
+        let x = this.parent.Node.clientWidth - this.left
+        let y = this.parent.Node.clientHeight - this.top
         let tan = y / x
         let angle = (Math.atan(tan) - Math.PI/4)
         return angle
@@ -37,25 +41,25 @@ class NoteFold{
 
     rotate(angle)
     {
-        this.fold.style.transform = `rotate(${angle*2}rad)`
+        this.Node.style.transform = `rotate(${angle*2}rad)`
     }
 
     cutCorner(angle)
     {
         angle = angle + Math.PI/4
-        let centerX = (this.left+this.parent.clientWidth)/2
-        let centerY = (this.top+this.parent.clientHeight)/2
+        let centerX = (this.left+this.parent.Node.clientWidth)/2
+        let centerY = (this.top+this.parent.Node.clientHeight)/2
         let plusX = Math.sin(angle)*10000
         let plusY = Math.cos(angle)*10000
-        this.parent.style.clipPath = `polygon(-10000px -10000px, 10000px -10000px, ${centerX+plusX}px ${centerY-plusY}px, ${centerX-plusX}px ${centerY+plusY}px, 10000px 10000px, -10000px 10000px)`
+        this.parent.Node.style.clipPath = `polygon(-10000px -10000px, 10000px -10000px, ${centerX+plusX}px ${centerY-plusY}px, ${centerX-plusX}px ${centerY+plusY}px, 10000px 10000px, -10000px 10000px)`
     }
 
     updateFold()
     {
-        this.fold.style.height = this.parent.clientWidth+"px"
-        this.fold.style.width = this.parent.clientHeight+"px"
-        this.fold.style.top = this.top + "px"
-        this.fold.style.left = this.left + "px"
+        this.Node.style.height = this.parent.Node.clientWidth+"px"
+        this.Node.style.width = this.parent.Node.clientHeight+"px"
+        this.Node.style.top = this.top + "px"
+        this.Node.style.left = this.left + "px"
     }
 
     moveFold(x, y)
@@ -76,29 +80,28 @@ class NoteFold{
         if(red>255) red = 255
         if(green>255) green = 255
         if(blue>255) blue = 255
-        this.fold.style.backgroundColor = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`
+        this.Node.style.backgroundColor = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`
     }
 
     dragStart()
     {
         if(Board.dragging == null){
             Board.dragging = this
-            Board.moveTop(this.parent)         
+            this.moveTop()
         }
-        
     }
 
     dragMove(x, y)
     {
         if(Board.dragging == this)
         {
-            let left = this.parent.style.left.replace("px", "")
-            let top = this.parent.style.top.replace("px", "")
+            let left = this.parent.Node.style.left.replace("px", "")
+            let top = this.parent.Node.style.top.replace("px", "")
             let outY, outX
-            if (y - parseInt(top) > this.parent.clientHeight){outY = this.parent.clientHeight} 
+            if (y - parseInt(top) > this.parent.Node.clientHeight){outY = this.parent.Node.clientHeight} 
             else{outY = y - parseInt(top)}
 
-            if (x - parseInt(left) > this.parent.clientWidth){outX = this.parent.clientWidth} 
+            if (x - parseInt(left) > this.parent.Node.clientWidth){outX = this.parent.Node.clientWidth} 
             else{outX = x - parseInt(left)}
                 
             this.moveFold(outX, outY)
@@ -109,7 +112,7 @@ class NoteFold{
     {
         if(this.top < 0 || this.left < 0)
         {
-            board.removeNote(this.noteDiv.note)
+            board.removeNote(this.parent)
             this.startFadingAway()
             board.saveNotes()
         }
@@ -122,17 +125,17 @@ class NoteFold{
 
     startFadingAway()
     {
-        this.parent.style.opacity = 1;
-        this.parent.setAttribute("pointer-events", "none")
+        this.parent.Node.style.opacity = 1;
+        this.parent.Node.setAttribute("pointer-events", "none")
         this.interval = setInterval(()=>{
-            if(this.parent.style.opacity <= 0)
+            if(this.parent.Node.style.opacity <= 0)
             {
                 clearInterval(this.interval)
-                this.parent.style.visibility = "hidden"
+                this.parent.Node.style.visibility = "hidden"
             }
             else
             {
-                this.parent.style.opacity -= 0.2
+                this.parent.Node.style.opacity -= 0.2
             } 
         }, 100);
     }

@@ -1,4 +1,4 @@
-div{
+.noteContainer, .noteContainer div{
     border: solid rgba(0, 0, 0, 0.37) 1px;
 }
 
@@ -6,7 +6,29 @@ body{
     margin: 0;
     height: 100vh;
     overflow: hidden;
+    background-color: rgb(250, 246, 231);
 }
+
+#editSpace{
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 248, 220, 0.623);
+}
+
+.editContainer
+{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    border: solid black 1px;
+    width: min-content;
+    height: min-content;
+}
+
 
 .insideNote{
     margin: 5px;
