@@ -25,8 +25,9 @@ class NoteHeader{
 
     dragStart(e)
     {
-        if(Board.dragging == null){
-            Board.dragging = this
+        if(board.editing != null) return
+        if(board.dragging == null){
+            board.dragging = this
             this.moveTop()
             this.draggingStart = {x: e.layerX, y: e.layerY}            
         }
@@ -34,7 +35,7 @@ class NoteHeader{
 
     dragMove(x, y)
     {
-        if(Board.dragging == this)
+        if(board.dragging == this)
         {
             this.parent.note.style.position.x = x-this.draggingStart.x
             this.parent.note.style.position.y = y-this.draggingStart.y
@@ -45,7 +46,7 @@ class NoteHeader{
     dragEnd(board)
     {
         board.saveNotes()
-        Board.dragging = null            
+        board.dragging = null            
 
     }
 }

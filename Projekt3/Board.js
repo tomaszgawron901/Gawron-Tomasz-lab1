@@ -1,30 +1,15 @@
 class Board{
-    static dragging = null;
-    static editing = null;
-
-
-
     moveTop(element)
     {
         this.highestIndexZ += 1
         element.style.zIndex = this.highestIndexZ
     }
 
-    windowsMouseMove(e){
-        if (Board.dragging == null) return
-        Board.dragging.dragMove(e.clientX, e.clientY)
-        document.body.style.cursor = "grabbing"
-    }
-    windowsMouseUp(e){
-        if (Board.dragging == null) return
-        Board.dragging.dragEnd(this)
-        Board.dragging = null
-        document.body.style.cursor = "auto"
-    }
-
-
     constructor(boardSpace, editSpace)
     {
+        this.dragging = null;
+        this.editing = null;
+
         this.notesArray = []
         this.boardSpace = boardSpace
         this.editSpace = editSpace
@@ -33,6 +18,18 @@ class Board{
         window.addEventListener("mousemove", (e)=>{this.windowsMouseMove(e)})
         window.addEventListener("mouseup", (e)=>{this.windowsMouseUp(e)})
         
+    }
+
+    windowsMouseMove(e){
+        if (this.dragging == null) return
+        this.dragging.dragMove(e.clientX, e.clientY)
+        document.body.style.cursor = "grabbing"
+    }
+    windowsMouseUp(e){
+        if (this.dragging == null) return
+        this.dragging.dragEnd(this)
+        this.dragging = null
+        document.body.style.cursor = "auto"
     }
 
     addNote(note)

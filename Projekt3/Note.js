@@ -8,7 +8,7 @@ class Note {
   }
 
 
-    constructor(title = '', description = '', style = {position: {x:0, y:0}, color: [200, 200, 200], zIndex: 0}) {
+    constructor(title = 'Title', description = 'Description', style = {position: {x:0, y:0}, color: [200, 200, 200], zIndex: 0}) {
       this.title = title
       this.description = description
       this.created = new Date().toISOString()

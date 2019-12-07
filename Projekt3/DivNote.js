@@ -95,15 +95,15 @@ class DivNote{
 
     onDoubleClick()
     {
-        if(this.editing == null)
+        if(board.editing == null)
         {
-            this.editing = new NoteEdition(this, board)
-            this.editing.display()            
+            board.editing = new NoteEditor(this, board)
+            board.editing.display()
         }
         else
         {
-            this.editing.exitEdition()
-            this.editing = null
+            board.editing.exitEdition()
+            board.editing = null
         }
     }
 }

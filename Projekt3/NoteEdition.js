@@ -26,6 +26,8 @@ class NoteEditor
         this.parent.editSpace.style.visibility = "visible"
         this.divNote.Node.style.position = "static"
         this.moveTop()
+        this.center()
+        this.divNote.fold.disable()
     }
 
     exitEdition()
@@ -35,10 +37,13 @@ class NoteEditor
         this.parent.editSpace.style.visibility = "hidden"
         this.divNote.Node.style.position = "absolute"
         this.divNote.display(boardSpace)
+        this.divNote.fold.enable()
     }
 
     center()
     {
-        this.div.style.marginLeft = ""
+        this.Node.style.marginLeft = "-"+this.Node.offsetWidth/2+"px"
+        this.Node.style.marginTop = "-"+this.Node.offsetHeight/2+"px"
     }
+
 }

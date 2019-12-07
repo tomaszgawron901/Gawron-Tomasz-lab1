@@ -25,6 +25,18 @@ class NoteFold{
         return this.Node
     }
 
+    enable()
+    {
+        this.Node.style.visibility = "visible"
+        this.cutCorner(this.angle)
+    }
+
+    disable()
+    {
+        this.Node.style.visibility = "hidden"
+        this.parent.Node.style.clipPath = "";
+    }
+
     moveTop()
     {
         this.parent.moveTop();
@@ -51,7 +63,10 @@ class NoteFold{
         let centerY = (this.top+this.parent.Node.clientHeight)/2
         let plusX = Math.sin(angle)*10000
         let plusY = Math.cos(angle)*10000
-        this.parent.Node.style.clipPath = `polygon(-10000px -10000px, 10000px -10000px, ${centerX+plusX}px ${centerY-plusY}px, ${centerX-plusX}px ${centerY+plusY}px, 10000px 10000px, -10000px 10000px)`
+        this.parent.Node.style.clipPath = `polygon(-10000px -10000px, 10000px -10000px, 
+            ${centerX+plusX}px ${centerY-plusY}px, 
+            ${centerX-plusX}px ${centerY+plusY}px, 
+            10000px 10000px, -10000px 10000px)`
     }
 
     updateFold()
@@ -85,15 +100,15 @@ class NoteFold{
 
     dragStart()
     {
-        if(Board.dragging == null){
-            Board.dragging = this
+        if(board.dragging == null){
+            board.dragging = this
             this.moveTop()
         }
     }
 
     dragMove(x, y)
     {
-        if(Board.dragging == this)
+        if(board.dragging == this)
         {
             let left = this.parent.Node.style.left.replace("px", "")
             let top = this.parent.Node.style.top.replace("px", "")
@@ -115,10 +130,11 @@ class NoteFold{
             board.removeNote(this.parent)
             this.startFadingAway()
             board.saveNotes()
+            board.dragging = null
         }
         else{
             this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
-            NoteFold.dragging = null            
+            board.dragging = null
         }
 
     }
