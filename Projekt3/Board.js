@@ -23,7 +23,6 @@ class Board{
     windowsMouseMove(e){
         if (this.dragging == null) return
         this.dragging.dragMove(e.clientX, e.clientY)
-        document.body.style.cursor = "grabbing"
     }
     windowsMouseUp(e){
         if (this.dragging == null) return

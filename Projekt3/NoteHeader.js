@@ -11,16 +11,24 @@ class NoteHeader{
 
     createDivHeader()
     {
-        this.Node = document.createElement("DIV")
+        this.Node = document.createElement("INPUT")
+        this.Node.setAttribute("type", "text")
+        this.Node.readOnly = true
         this.Node.classList.add("noteHeader")
         this.Node.classList.add("insideNote")
         this.Node.addEventListener("mousedown",(e)=>{this.dragStart(e)})
+        this.Node.addEventListener("change", ()=>{this.onchange()})
         return this.Node
+    }
+
+    onchange()
+    {
+        this.parent.note.title = this.Node.value
     }
 
     update(value)
     {
-        this.Node.innerHTML = value
+        this.Node.value = value
     }
 
     dragStart(e)
@@ -29,7 +37,8 @@ class NoteHeader{
         if(board.dragging == null){
             board.dragging = this
             this.moveTop()
-            this.draggingStart = {x: e.layerX, y: e.layerY}            
+            this.draggingStart = {x: e.layerX, y: e.layerY}
+            this.Node.style.cursor = "grabbing"
         }
     }
 
@@ -46,7 +55,7 @@ class NoteHeader{
     dragEnd(board)
     {
         board.saveNotes()
-        board.dragging = null            
-
+        board.dragging = null
+        this.Node.style.cursor = "grab"
     }
 }

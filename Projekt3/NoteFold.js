@@ -103,6 +103,7 @@ class NoteFold{
         if(board.dragging == null){
             board.dragging = this
             this.moveTop()
+            document.body.style.cursor = "grabbing"
         }
     }
 

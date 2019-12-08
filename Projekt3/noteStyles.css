@@ -34,6 +34,12 @@ body{
     margin: 5px;
 }
 
+input[type="text"].insideNote {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.37);
+}
+
+
 /* CONTAINER */
 .noteContainer{
     position: absolute;
@@ -60,6 +66,7 @@ body{
     padding-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
+    cursor: grab;
 }
 
 /* MAIN */

@@ -4,6 +4,7 @@ class NoteEditor
         this.parent = parent
         this.divNote = divNote
         this.createDiv()
+        board.editing = this
     }
 
     moveTop()
@@ -28,6 +29,7 @@ class NoteEditor
         this.moveTop()
         this.center()
         this.divNote.fold.disable()
+        this.divNote.header.Node.readOnly = false
     }
 
     exitEdition()
@@ -38,6 +40,9 @@ class NoteEditor
         this.divNote.Node.style.position = "absolute"
         this.divNote.display(boardSpace)
         this.divNote.fold.enable()
+        this.divNote.header.Node.readOnly = true
+        board.saveNotes()
+        board.editing = null
     }
 
     center()

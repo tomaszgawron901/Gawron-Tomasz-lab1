@@ -97,13 +97,13 @@ class DivNote{
     {
         if(board.editing == null)
         {
-            board.editing = new NoteEditor(this, board)
+            new NoteEditor(this, board)
             board.editing.display()
         }
         else
         {
             board.editing.exitEdition()
-            board.editing = null
+            
         }
     }
 }
