@@ -19,10 +19,15 @@ class DivNote{
         this.Node.style.zIndex = this.note.style.zIndex
         this.updatePosition()
         this.addHeader()
-        this.Node.addEventListener("dblclick", (e)=>{this.onDoubleClick(); console.log(e);
-        })
-        this.Node.appendChild(this.createMain())
+        this.addMain()
+        this.Node.addEventListener("dblclick", (e)=>{this.onDoubleClick()})
+        this.Node.addEventListener("resize", ()=>{this.onResize()})
         this.Node.appendChild(this.createFooter())
+    }
+
+    onResize()
+    {
+        this.header.Node.clientWidth = this.main.Node.clientWidth
     }
 
     display(boardSpace)
@@ -48,12 +53,10 @@ class DivNote{
         this.Node.appendChild(this.header.createDivHeader())
     }
 
-    createMain()
+    addMain()
     {
-        this.main = document.createElement("DIV")
-        this.main.classList.add("noteMain")
-        this.main.classList.add("insideNote")
-        return this.main
+        this.main = new NoteMain(this)
+        this.Node.appendChild(this.main.createDivMain())
     }
 
     createFooter()
@@ -78,7 +81,7 @@ class DivNote{
 
     updateMain()
     {
-        this.main.innerHTML = this.note.description
+        this.main.update(this.note.description)
     }
 
     updateFooter()

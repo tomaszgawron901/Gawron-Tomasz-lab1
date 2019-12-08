@@ -2,10 +2,21 @@ class NoteFold{
     constructor(parent)
     {
         this.parent = parent
+        this.update()
+    }
+
+    update()
+    {
         this.defaultTopPosition = this.parent.Node.clientHeight-30
         this.defaultLeftPosition = this.parent.Node.clientWidth-30
         this.top = this.defaultTopPosition
         this.left = this.defaultLeftPosition
+    }
+
+    reset()
+    {
+        this.update()
+        this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
     }
 
     createDivFold(color)

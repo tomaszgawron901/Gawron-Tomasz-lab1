@@ -17,19 +17,34 @@ class NoteEditor
         this.Node = document.createElement("DIV")
         this.Node.classList.add("editContainer")
         this.Node.appendChild(this.divNote.Node)
+        this.parent.editSpace.addEventListener("mousemove", ()=>{if(this.isSizeChanged())this.center()})
+    }
+
+    isSizeChanged()
+    {
+        if(this.cw == null || this.ch == null)
+        {
+            this.cw = this.Node.clientWidth
+            this.ch = this.Node.clientHeight
+            return false            
+        }
+        if(this.cw != this.Node.clientWidth || this.ch != this.Node.clientHeight)
+            return true
+        return false
     }
 
     display()
     {
         this.parent.editSpace.innerHTML = "";
         this.parent.editSpace.appendChild(this.Node)
-        this.Node.style.transform = "scale(2)"
+        this.Node.style.transform = "scale(1.25)"
         this.parent.editSpace.style.visibility = "visible"
         this.divNote.Node.style.position = "static"
         this.moveTop()
         this.center()
         this.divNote.fold.disable()
-        this.divNote.header.Node.readOnly = false
+        this.divNote.header.enable()
+        this.divNote.main.enable()
     }
 
     exitEdition()
@@ -40,7 +55,9 @@ class NoteEditor
         this.divNote.Node.style.position = "absolute"
         this.divNote.display(boardSpace)
         this.divNote.fold.enable()
-        this.divNote.header.Node.readOnly = true
+        this.divNote.header.disable()
+        this.divNote.main.disable()
+        this.divNote.fold.reset()
         board.saveNotes()
         board.editing = null
     }

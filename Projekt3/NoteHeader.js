@@ -13,12 +13,23 @@ class NoteHeader{
     {
         this.Node = document.createElement("INPUT")
         this.Node.setAttribute("type", "text")
+        this.Node.setAttribute("width", "200")
         this.Node.readOnly = true
         this.Node.classList.add("noteHeader")
         this.Node.classList.add("insideNote")
         this.Node.addEventListener("mousedown",(e)=>{this.dragStart(e)})
         this.Node.addEventListener("change", ()=>{this.onchange()})
         return this.Node
+    }
+
+    enable()
+    {
+        this.Node.readOnly = false
+    }
+
+    disable()
+    {
+        this.Node.readOnly = true
     }
 
     onchange()
