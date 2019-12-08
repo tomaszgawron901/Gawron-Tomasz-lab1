@@ -1,9 +1,5 @@
 class Board{
-    moveTop(element)
-    {
-        this.highestIndexZ += 1
-        element.style.zIndex = this.highestIndexZ
-    }
+
 
     constructor(boardSpace, editSpace)
     {
@@ -20,6 +16,14 @@ class Board{
         
     }
 
+    moveTop(element)
+    {
+        this.highestIndexZ += parseInt(1)
+        element.style.zIndex = this.highestIndexZ
+        console.log(element);
+        
+    }
+
     windowsMouseMove(e){
         if (this.dragging == null) return
         this.dragging.dragMove(e.clientX, e.clientY)
@@ -33,6 +37,10 @@ class Board{
 
     addNote(note)
     {
+        if(note.style.zIndex > this.highestIndexZ)
+        {
+            this.highestIndexZ = parseInt(note.style.zIndex)
+        }
         this.notesArray.push(new DivNote(note, this))
     }
 

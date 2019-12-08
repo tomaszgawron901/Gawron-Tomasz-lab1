@@ -17,20 +17,36 @@ class NoteEditor
         this.Node = document.createElement("DIV")
         this.Node.classList.add("editContainer")
         this.Node.appendChild(this.divNote.Node)
-        this.parent.editSpace.addEventListener("mousemove", ()=>{if(this.isSizeChanged())this.center()})
+        this.parent.editSpace.addEventListener("mousemove", ()=>{
+            if(this.isSizeChanged())
+            {
+                this.center()
+                this.divNote.note.style.width = this.divNote.main.Node.clientWidth
+                this.divNote.note.style.height = this.divNote.main.Node.clientHeight
+            }
+
+        })
     }
 
     isSizeChanged()
     {
+        let out = null
         if(this.cw == null || this.ch == null)
+            out = false
+        else
         {
-            this.cw = this.Node.clientWidth
-            this.ch = this.Node.clientHeight
-            return false            
+            if(this.cw != this.Node.clientWidth || this.ch != this.Node.clientHeight)
+            {
+                out = true
+            }
+            else
+            {
+                out = false
+            }
         }
-        if(this.cw != this.Node.clientWidth || this.ch != this.Node.clientHeight)
-            return true
-        return false
+        this.cw = this.Node.clientWidth
+        this.ch = this.Node.clientHeight
+        return out
     }
 
     display()

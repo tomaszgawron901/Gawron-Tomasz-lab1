@@ -9,6 +9,7 @@ class DivNote{
     moveTop()
     {
         this.parent.moveTop(this.Node)
+        this.note.style.zIndex = this.Node.style.zIndex
     }
 
     createDiv()
@@ -21,14 +22,9 @@ class DivNote{
         this.addHeader()
         this.addMain()
         this.Node.addEventListener("dblclick", (e)=>{this.onDoubleClick()})
-        this.Node.addEventListener("resize", ()=>{this.onResize()})
         this.Node.appendChild(this.createFooter())
     }
 
-    onResize()
-    {
-        this.header.Node.clientWidth = this.main.Node.clientWidth
-    }
 
     display(boardSpace)
     {
@@ -56,7 +52,7 @@ class DivNote{
     addMain()
     {
         this.main = new NoteMain(this)
-        this.Node.appendChild(this.main.createDivMain())
+        this.Node.appendChild(this.main.createDivMain(this.note.style.width, this.note.style.height))
     }
 
     createFooter()

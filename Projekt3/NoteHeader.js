@@ -13,7 +13,6 @@ class NoteHeader{
     {
         this.Node = document.createElement("INPUT")
         this.Node.setAttribute("type", "text")
-        this.Node.setAttribute("width", "200")
         this.Node.readOnly = true
         this.Node.classList.add("noteHeader")
         this.Node.classList.add("insideNote")

@@ -10,12 +10,14 @@ class NoteMain
         this.parent.moveTop()
     }
 
-    createDivMain()
+    createDivMain(width, height)
     {
         this.Node = document.createElement("textarea")
         this.Node.classList.add("noteMain")
         this.Node.classList.add("insideNote")
         this.Node.disabled = true
+        this.Node.style.width = width+"px"
+        this.Node.style.height = height+"px"
         this.Node.addEventListener("input", ()=>{this.onchange()})
         this.disable()
         return this.Node
