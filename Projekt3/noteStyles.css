@@ -28,6 +28,8 @@ body{
     border: solid black 1px;
     width: min-content;
     height: min-content;
+    display: flex;
+    flex-direction: row;
 }
 
 
@@ -44,6 +46,13 @@ input[type="text"].insideNote, textarea.insideNote {
 textarea.insideNote:disabled {
     color: unset;
     cursor: unset;
+}
+
+.editTools{
+    width: 200px;
+    height: max-content;
+    margin-left: 15px;
+    border: black solid 1px;
 }
 
 
@@ -79,7 +88,7 @@ textarea.insideNote:disabled {
 /* MAIN */
 .noteMain{
     min-width: 265px;
-    min-height: 200px;
+    min-height: 201px;
 }
 
 /* FOOTER */

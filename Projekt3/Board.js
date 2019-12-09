@@ -20,8 +20,6 @@ class Board{
     {
         this.highestIndexZ += parseInt(1)
         element.style.zIndex = this.highestIndexZ
-        console.log(element);
-        
     }
 
     windowsMouseMove(e){

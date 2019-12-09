@@ -17,15 +17,14 @@ class NoteEditor
         this.Node = document.createElement("DIV")
         this.Node.classList.add("editContainer")
         this.Node.appendChild(this.divNote.Node)
-        this.parent.editSpace.addEventListener("mousemove", ()=>{
+        this.parent.editSpace.onmousemove = ()=>{
             if(this.isSizeChanged())
             {
                 this.center()
                 this.divNote.note.style.width = this.divNote.main.Node.clientWidth
                 this.divNote.note.style.height = this.divNote.main.Node.clientHeight
-            }
-
-        })
+            }}
+        this.Node.appendChild(new EditorTools(this).createDiv())
     }
 
     isSizeChanged()
