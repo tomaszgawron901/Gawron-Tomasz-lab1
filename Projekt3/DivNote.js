@@ -16,7 +16,7 @@ class DivNote{
     {
         this.Node = document.createElement("DIV")
         this.Node.classList.add("noteContainer")
-        this.Node.style.backgroundColor = `rgb(${this.note.style.color[0]}, ${this.note.style.color[1]}, ${this.note.style.color[2]})`
+        this.updateColor()
         this.Node.style.zIndex = this.note.style.zIndex
         this.updatePosition()
         this.addHeader()
@@ -25,6 +25,11 @@ class DivNote{
         this.Node.appendChild(this.createFooter())
     }
 
+    updateColor()
+    {
+        this.Node.style.backgroundColor = `rgb(${this.note.style.color[0]}, ${this.note.style.color[1]}, ${this.note.style.color[2]})`
+        if(this.fold != null) this.fold.updateColor(this.note.style.color)
+    }
 
     display(boardSpace)
     {
@@ -96,7 +101,7 @@ class DivNote{
     {
         if(board.editing == null)
         {
-            new NoteEditor(this, board)
+            new NoteEditor(this)
             board.editing.display()
         }
         else

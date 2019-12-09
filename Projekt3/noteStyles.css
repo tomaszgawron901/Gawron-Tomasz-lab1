@@ -20,12 +20,26 @@ body{
     background-color: rgba(255, 248, 220, 0.623);
 }
 
+.tool{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.shadow{
+    box-shadow: -5px -5px 5px rgba(128, 128, 128, 0.521);
+}
+
+
 .editContainer
 {
     position: relative;
     left: 50%;
     top: 50%;
-    border: solid black 1px;
     width: min-content;
     height: min-content;
     display: flex;
@@ -53,6 +67,7 @@ textarea.insideNote:disabled {
     height: max-content;
     margin-left: 15px;
     border: black solid 1px;
+    background-color: gainsboro;
 }
 
 
@@ -87,8 +102,8 @@ textarea.insideNote:disabled {
 
 /* MAIN */
 .noteMain{
-    min-width: 265px;
-    min-height: 201px;
+    min-width: 270px;
+    min-height: 200px;
 }
 
 /* FOOTER */

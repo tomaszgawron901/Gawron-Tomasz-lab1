@@ -10,6 +10,26 @@
 <body>
     <div id="boardSpace"></div>
     <div id="editSpace">
+        <div id="editContainer" class="editContainer">
+            <div id ="placeForNoteDiv" class="shadow"></div>
+            <div id ="editTools" class="editTools shadow">
+                <label for="inportantCheckBox" class="tool"><input type="checkbox" id="inportantCheckBox"> IMPORTANT!</label>
+                <div class="tool">
+                    <a>Color:</a>
+                    <select id="colorSelector" style="width: 100%;">
+                        <option value="Light Red">Light Red</option>
+                        <option value="Light Green">Light Green</option>
+                        <option value="Light Blue">Light Blue</option>
+                        <option value="Light Gray">Light Gray</option>
+                        <option value="Purple">Purple</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Red">Red</option>
+                        <option value="Cyan">Cyan</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="Elements.js"></script>
@@ -18,7 +38,6 @@
     <script type="text/javascript" src="NoteHeader.js"></script>
     <script type="text/javascript" src="NoteMain.js"></script>
     <script type="text/javascript" src="NoteEdition.js"></script>
-    <script type="text/javascript" src="EditionTools.js"></script>
     <script type="text/javascript" src="DivNote.js"></script>
     <script type="text/javascript" src="NoteFold.js"></script>
     <script type="text/javascript" src="Script.js"></script>
