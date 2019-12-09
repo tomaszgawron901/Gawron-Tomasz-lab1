@@ -63,7 +63,7 @@ textarea.insideNote:disabled {
 }
 
 .editTools{
-    width: 200px;
+    width: 250px;
     height: max-content;
     margin-left: 15px;
     border: black solid 1px;

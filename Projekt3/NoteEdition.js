@@ -1,6 +1,9 @@
 class NoteEditor
 {
     constructor(divNote){
+        this.divNote = divNote
+        board.editing = this
+
         this.editSpace = document.getElementById("editSpace")
         this.editContainer = document.getElementById("editContainer")
 
@@ -14,8 +17,12 @@ class NoteEditor
         this.colorSelector = document.getElementById("colorSelector")
         this.colorSelector.onchange = (e)=>{this.changeColor(e.target.value)}
 
-        this.divNote = divNote
-        board.editing = this
+
+        this.dataReminder = document.getElementById("dataReminder")
+        this.setReminder(this.divNote.note.reminder)
+        this.dataReminder.oninput = (e)=>{this.ChangeReminder(e.target.value)}
+
+
 
         this.editSpace.onmousemove = ()=>{
             if(this.isSizeChanged())
@@ -24,6 +31,33 @@ class NoteEditor
                 this.divNote.note.style.width = this.divNote.main.Node.clientWidth
                 this.divNote.note.style.height = this.divNote.main.Node.clientHeight
             }}
+    }
+
+    setReminder(date)
+    {
+        if(date == null)
+        {
+            this.dataReminder.value = ""
+        }
+        else{
+            date = new Date(date)      
+            let out = date.toLocaleDateString().split(".")
+            if(parseInt(out[0])<10) out[0] = "0"+out[0]
+            out = out[2]+"-"+out[1]+"-"+out[0]
+            this.dataReminder.value = out
+        }
+    }
+
+    ChangeReminder(dateString)
+    {
+        if(dateString=="")
+        {
+            this.divNote.note.reminder = null
+        }
+        else
+        {
+            this.divNote.note.reminder = new Date(Date.parse(dateString)).toISOString()
+        }
     }
 
     changeColor(colorString)

@@ -4,6 +4,7 @@ class Note {
     let noteCp = new Note(note.title, note.description,note.style)
     noteCp.pinned = note.pinned
     noteCp.created = note.created
+    noteCp.reminder = note.reminder
     return noteCp
   }
 
@@ -12,6 +13,7 @@ class Note {
       this.title = title
       this.description = description
       this.created = new Date().toISOString()
+      this.reminder = null
       this.pinned = false
       this.style = style
     }
