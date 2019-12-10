@@ -13,6 +13,15 @@ class Board{
         this.highestIndexZ = 0
         window.addEventListener("mousemove", (e)=>{this.windowsMouseMove(e)})
         window.addEventListener("mouseup", (e)=>{this.windowsMouseUp(e)})
+        document.body.ondblclick = (e)=>{
+            if(e.target == document.body)
+            {
+                this.addNote(new Note('New Note', '', {position: {x: e.clientX, y:e.clientY }, color: [200, 200, 200], zIndex: 0, width: 256, height: 200}))
+                this.saveNotes()
+                this.display()                
+            }
+
+        }
         
     }
 
@@ -28,7 +37,7 @@ class Board{
     }
     windowsMouseUp(e){
         if (this.dragging == null) return
-        this.dragging.dragEnd(this)
+        this.dragging.dragEnd()
         this.dragging = null
         document.body.style.cursor = "auto"
     }
@@ -82,6 +91,13 @@ class Board{
                 this.addNote(Note.CloneNote(note))
             });
         }
+        this.notesArray.forEach( divNote =>{
+            new NoteReminder(divNote).manageNotifications()
+        })
 
     }
+
+
+
+
 }

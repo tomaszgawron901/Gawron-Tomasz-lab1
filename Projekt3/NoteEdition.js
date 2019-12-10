@@ -5,6 +5,11 @@ class NoteEditor
         board.editing = this
 
         this.editSpace = document.getElementById("editSpace")
+        this.editSpace.onclick = (e)=>{
+            if(e.target == this.editSpace || e.target == this.editContainer)
+                this.exitEdition()
+        }
+
         this.editContainer = document.getElementById("editContainer")
 
         this.placeForNoteDiv = document.getElementById("placeForNoteDiv")

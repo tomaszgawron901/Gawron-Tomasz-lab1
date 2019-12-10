@@ -62,7 +62,12 @@ class NoteHeader{
         }
     }
 
-    dragEnd(board)
+    dragEnd()
+    {
+        this.dragingCancel()
+    }
+
+    dragingCancel()
     {
         board.saveNotes()
         board.dragging = null

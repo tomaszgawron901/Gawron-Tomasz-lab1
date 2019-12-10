@@ -135,20 +135,30 @@ class NoteFold{
         }
     }
 
-    dragEnd(board)
+    dragEnd()
     {
         if(this.top < 0 || this.left < 0)
         {
-            board.removeNote(this.parent)
-            this.startFadingAway()
-            board.saveNotes()
-            board.dragging = null
+            this.deleteDiv()
         }
         else{
-            this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
-            board.dragging = null
+            this.dragingCancel()
         }
 
+    }
+
+    deleteDiv()
+    {
+        board.removeNote(this.parent)
+        this.startFadingAway()
+        board.saveNotes()
+        board.dragging = null
+    }
+
+    dragingCancel()
+    {
+        this.moveFold(this.defaultLeftPosition, this.defaultTopPosition)
+        board.dragging = null
     }
 
     startFadingAway()

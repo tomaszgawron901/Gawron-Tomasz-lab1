@@ -21,7 +21,7 @@ class DivNote{
         this.updatePosition()
         this.addHeader()
         this.addMain()
-        this.Node.addEventListener("dblclick", (e)=>{this.onDoubleClick()})
+        this.Node.addEventListener("dblclick", (e)=>{this.edit()})
         this.Node.appendChild(this.createFooter())
     }
 
@@ -97,17 +97,13 @@ class DivNote{
     }
 
 
-    onDoubleClick()
+    edit()
     {
         if(board.editing == null)
         {
             new NoteEditor(this)
             board.editing.display()
         }
-        else
-        {
-            board.editing.exitEdition()
-            
-        }
     }
+
 }
