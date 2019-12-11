@@ -106,4 +106,25 @@ class DivNote{
         }
     }
 
+    delete()
+    {
+        board.removeNote(this)
+
+        this.Node.style.opacity = 1;
+        this.Node.setAttribute("pointer-events", "none")
+        this.interval = setInterval(()=>{
+            if(this.Node.style.opacity <= 0)
+            {
+                clearInterval(this.interval)
+                this.fold.Node.style.visibility = "hidden"
+            }
+            else
+            {
+                this.Node.style.opacity -= 0.2
+            } 
+        }, 100);
+
+        board.saveNotes()
+    }
+
 }

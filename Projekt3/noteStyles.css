@@ -1,3 +1,12 @@
+
+.view{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+
 .noteContainer, .noteContainer div{
     border: solid rgba(0, 0, 0, 0.37) 1px;
 }
@@ -70,6 +79,11 @@ textarea.insideNote:disabled {
     background-color: gainsboro;
 }
 
+
+.importantNote
+{
+    box-shadow: -5px -5px 5px rgba(128, 128, 128, 0.521);
+}
 
 /* CONTAINER */
 .noteContainer{

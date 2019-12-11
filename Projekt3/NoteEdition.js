@@ -1,3 +1,67 @@
+function changeStringToColor(colorString)
+{
+    switch(colorString)
+    {
+        case "Light Red":
+            return [255, 200, 200]
+        case "Light Green":
+            return [200, 255, 200]
+        case "Light Blue":
+            return [200, 200, 255]
+        case "Light Gray":
+            return [200, 200, 200]
+        case "Purple":
+            return [255, 0, 255] 
+        case "Orange":
+            return [255, 165, 0]      
+        case "Red":
+            return [255, 50, 50]           
+        case "Cyan":
+            return [30, 255, 255]                                          
+    }
+}
+
+function changeToColorString(color)
+{
+    if(colorsAreEqual(color, [255, 200, 200]))
+    {
+        return"Light Red"
+    }else if(colorsAreEqual(color, [200, 255, 200]))
+    {
+        return "Light Green"
+    }else if(colorsAreEqual(color, [200, 200, 255]))
+    {
+        return "Light Blue"
+    }else if(colorsAreEqual(color, [200, 200, 200]))
+    {
+        return "Light Gray"
+    } else if(colorsAreEqual(color, [255, 0, 255]))
+    {
+        return "Purple"
+    } else if(colorsAreEqual(color, [255, 165, 0]))
+    {
+        return "Orange"
+    } else if(colorsAreEqual(color, [255, 50, 50]))
+    {
+        return "Red" 
+    } else if(colorsAreEqual(color, [30, 255, 255]))
+    {
+        return "Cyan"
+    } else
+    {
+        throw new Error("Cannot change given color");
+    }
+}
+
+function colorsAreEqual(color1, color2)
+{
+    if(color1[0]==color2[0] && color1[1]==color2[1] && color1[2]==color2[2])
+        return true
+    return false
+}
+
+
+
 class NoteEditor
 {
     constructor(divNote){
@@ -20,14 +84,21 @@ class NoteEditor
             this.divNote.note.pinned = e.target.checked}
 
         this.colorSelector = document.getElementById("colorSelector")
-        this.colorSelector.onchange = (e)=>{this.changeColor(e.target.value)}
+        this.colorSelector.onchange = (e)=>{
+            this.divNote.note.style.color = changeStringToColor(e.target.value)
+            this.divNote.updateColor()
+        }
 
 
         this.dataReminder = document.getElementById("dataReminder")
         this.setReminder(this.divNote.note.reminder)
         this.dataReminder.oninput = (e)=>{this.ChangeReminder(e.target.value)}
 
-
+        this.deleteBTN = document.getElementById("deleteBTN")
+        this.deleteBTN.onclick = ()=>{
+            this.exitEdition()
+            this.divNote.delete()
+        }
 
         this.editSpace.onmousemove = ()=>{
             if(this.isSizeChanged())
@@ -63,77 +134,6 @@ class NoteEditor
         {
             this.divNote.note.reminder = new Date(Date.parse(dateString)).toISOString()
         }
-    }
-
-    changeColor(colorString)
-    {
-        switch(colorString)
-        {
-            case "Light Red":
-                this.divNote.note.style.color = [255, 200, 200]
-                break
-            case "Light Green":
-                this.divNote.note.style.color = [200, 255, 200]
-                break
-            case "Light Blue":
-                this.divNote.note.style.color = [200, 200, 255]
-                break
-            case "Light Gray":
-                this.divNote.note.style.color = [200, 200, 200]
-                break
-            case "Purple":
-                this.divNote.note.style.color = [255, 0, 255]
-                break 
-            case "Orange":
-                this.divNote.note.style.color = [255, 165, 0]
-                break      
-            case "Red":
-                this.divNote.note.style.color = [255, 50, 50]
-                break           
-            case "Cyan":
-                this.divNote.note.style.color = [30, 255, 255]
-                break                                          
-        }
-        this.divNote.updateColor()
-    }
-
-    changeToColorString(color)
-    {
-        if(this.colorsAreEqual(color, [255, 200, 200]))
-        {
-            return"Light Red"
-        }else if(this.colorsAreEqual(color, [200, 255, 200]))
-        {
-            return "Light Green"
-        }else if(this.colorsAreEqual(color, [200, 200, 255]))
-        {
-            return "Light Blue"
-        }else if(this.colorsAreEqual(color, [200, 200, 200]))
-        {
-            return "Light Gray"
-        } else if(this.colorsAreEqual(color, [255, 0, 255]))
-        {
-            return "Purple"
-        } else if(this.colorsAreEqual(color, [255, 165, 0]))
-        {
-            return "Orange"
-        } else if(this.colorsAreEqual(color, [255, 50, 50]))
-        {
-            return "Red" 
-        } else if(this.colorsAreEqual(color, [30, 255, 255]))
-        {
-            return "Cyan"
-        } else
-        {
-            throw new Error("Cannot change given color");
-        }
-    }
-
-    colorsAreEqual(color1, color2)
-    {
-        if(color1[0]==color2[0] && color1[1]==color2[1] && color1[2]==color2[2])
-            return true
-        return false
     }
 
     moveTop()
@@ -174,7 +174,7 @@ class NoteEditor
         this.divNote.header.enable()
         this.divNote.main.enable()
         this.importantCheckBox.checked = this.divNote.note.pinned
-        this.colorSelector.value = this.changeToColorString(this.divNote.note.style.color)
+        this.colorSelector.value = changeToColorString(this.divNote.note.style.color)
     }
 
     exitEdition()
@@ -189,6 +189,7 @@ class NoteEditor
         this.divNote.main.disable()
         this.divNote.fold.reset()
         board.saveNotes()
+        board.display()
         board.editing = null
     }
 

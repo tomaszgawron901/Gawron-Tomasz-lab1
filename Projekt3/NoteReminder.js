@@ -16,6 +16,7 @@ class NoteReminder
         if(secBetween< 0 )
         {
             this.divNote.note.reminder = null
+            this.divNote.note.pinned = false
             return          
         }
         if(secBetween/miliSecondsInDay>1)

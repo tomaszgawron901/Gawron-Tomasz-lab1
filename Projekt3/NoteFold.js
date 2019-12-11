@@ -139,20 +139,13 @@ class NoteFold{
     {
         if(this.top < 0 || this.left < 0)
         {
-            this.deleteDiv()
+            this.parent.delete()
+            board.dragging = null
         }
         else{
             this.dragingCancel()
         }
 
-    }
-
-    deleteDiv()
-    {
-        board.removeNote(this.parent)
-        this.startFadingAway()
-        board.saveNotes()
-        board.dragging = null
     }
 
     dragingCancel()
@@ -161,20 +154,4 @@ class NoteFold{
         board.dragging = null
     }
 
-    startFadingAway()
-    {
-        this.parent.Node.style.opacity = 1;
-        this.parent.Node.setAttribute("pointer-events", "none")
-        this.interval = setInterval(()=>{
-            if(this.parent.Node.style.opacity <= 0)
-            {
-                clearInterval(this.interval)
-                this.parent.Node.style.visibility = "hidden"
-            }
-            else
-            {
-                this.parent.Node.style.opacity -= 0.2
-            } 
-        }, 100);
-    }
 }
