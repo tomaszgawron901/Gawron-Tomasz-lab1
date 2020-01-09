@@ -1,0 +1,43 @@
+.ball {
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+  }
+  .ball::after {
+    content: "";
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 15%);
+    transform: skewX(-20deg);
+    filter: blur(3px);
+  }
+
+  .ball::before {
+    content: "";
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 20%,rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
+    border: solid black 1px;
+  }
+
+  .ball .label{
+    border-radius: 50%;
+    position: relative;
+    background: white;
+    border: solid black 1px;
+
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
