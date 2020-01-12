@@ -3,7 +3,7 @@
     border-radius: 50%;
     position: absolute;
     margin: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
   .ball::after {
     content: "";
@@ -25,7 +25,6 @@
     position: absolute;
     border-radius: 50%;
     background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 20%,rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
-    border: solid black 1px;
   }
 
   .ball .label{
@@ -40,4 +39,10 @@
     display: flex;
     justify-content: center;
     align-items: center
+  }
+
+
+  .board{
+    display: block;
+    border: solid black 2px;
   }

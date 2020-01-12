@@ -11,28 +11,39 @@ class Ball{
         this.speed = {x: 0, y: 0}
     }
 
+
+    moveTo(x, y)
+    {
+        
+        let deltaX = (x-this.position.x)%(2*Math.PI*this.size)
+        let deltaY = (y-this.position.y)%(2*Math.PI*this.size)
+
+
+        let deltaBeta = 180*deltaY/(Math.PI*this.size)
+        let deltaGamma = 180*deltaX/(Math.PI*this.size)
+        
+        this.setPosition(x, y)
+        this.setOrientation(this.orientation.alpha, this.orientation.beta+deltaBeta, this.orientation.gamma+deltaGamma)
+    }
+
+
     setOrientation(alpha, beta, gamma)
     {
-        this.orientation = {alpha: alpha%180, beta: beta%180, gamma: gamma%180}
+        this.orientation = {alpha: alpha%360, beta: beta%360, gamma: gamma%360}
         if(this.label == null)
             return
-        let cx = parseInt(this.orientation.gamma/90)
-        let rx = this.orientation.gamma%90
-        let x = (cx+Math.sin(Math.PI/2*rx/180))*this.size
+        let x = Math.sin(Math.PI*this.orientation.gamma/180)*this.size
 
-
-        let cy = parseInt(this.orientation.beta/90)
-        let ry = this.orientation.beta%90
-        let y = (cy+Math.sin(Math.PI/2*ry/180))*this.size
-        this.label.transform(x, y, this.orientation.beta , this.orientation.gamma)
+        let y = Math.sin(Math.PI*this.orientation.beta/180)*this.size
+        this.label.transform(x, y, 0, 0, 0)
         
     }
 
     setSize(size)
     {
         this.size = size
-        this.div.style.width = this.size+"px"
-        this.div.style.height = this.size+"px"
+        this.div.style.width = this.size*2+"px"
+        this.div.style.height = this.size*2+"px"
     }
 
     setPosition(x, y)
@@ -60,7 +71,7 @@ class Ball{
     {
         if(this.div == null)
             throw Error("Unable to add label. this.div is not defined.")
-        this.label = new Label(text, this.size/2, this.size/2)
+        this.label = new Label(text, this.size, this.size)
         this.div.innerHTML = ""
         this.div.appendChild(this.label.div)
     }
@@ -76,9 +87,9 @@ class Label{
         this.setPosition(position, position)
     }
 
-    transform(x, y, beta, gamma)
+    transform(x, y, alpha, beta, gamma)
     {
-        this.div.style.transform = `matrix(${Math.cos(Math.PI*gamma/180)}, 0, ${-Math.sin(Math.PI*gamma/90)*Math.sin(Math.PI*beta/90)*0.5}, ${Math.cos(Math.PI*beta/180)}, ${x}, ${y})`
+        this.div.style.transform = `matrix(${Math.cos(Math.PI*gamma/360)+0.3}, 0, ${-Math.sin(Math.PI*gamma/90)*Math.sin(Math.PI*beta/90)*0.35}, ${Math.cos(Math.PI*beta/360)+0.3}, ${x}, ${y})`
     }
 
     setPosition(x, y)
@@ -111,11 +122,3 @@ class Label{
 
 
 }
-
-
-
-b = new Ball(100, "red", 100, 100)
-b.addLabel("8")
-document.body.appendChild(b.div)
-window.addEventListener("deviceorientation", (e)=>{b.setOrientation(e.alpha, e.beta, e.gamma)
-})
