@@ -42,6 +42,14 @@
   }
 
 
+    .aim{
+      display: block;
+      border-radius: 50%;
+      position: absolute;
+      margin: 0;
+      border: solid black 1px;
+    }
+
   .board{
     display: block;
     border: solid black 2px;

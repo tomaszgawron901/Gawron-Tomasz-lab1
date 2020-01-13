@@ -1,42 +1,14 @@
-class Ball{
-    constructor(size, color ,x, y)
+class Circle{
+
+    constructor(size, color ,x, y, board)
     {
         if (size < 0)
-            throw Error("To create Ball use nonnegative value.")
+            throw Error("To create circle use nonnegative value.")
+        this.board = board
         this.createDiv()
         this.setSize(size)
         this.setColor(color)
         this.setPosition(x, y)
-        this.setOrientation(0, 0, 0)
-        this.speed = {x: 0, y: 0}
-    }
-
-
-    moveTo(x, y)
-    {
-        
-        let deltaX = (x-this.position.x)%(2*Math.PI*this.size)
-        let deltaY = (y-this.position.y)%(2*Math.PI*this.size)
-
-
-        let deltaBeta = 180*deltaY/(Math.PI*this.size)
-        let deltaGamma = 180*deltaX/(Math.PI*this.size)
-        
-        this.setPosition(x, y)
-        this.setOrientation(this.orientation.alpha, this.orientation.beta+deltaBeta, this.orientation.gamma+deltaGamma)
-    }
-
-
-    setOrientation(alpha, beta, gamma)
-    {
-        this.orientation = {alpha: alpha%360, beta: beta%360, gamma: gamma%360}
-        if(this.label == null)
-            return
-        let x = Math.sin(Math.PI*this.orientation.gamma/180)*this.size
-
-        let y = Math.sin(Math.PI*this.orientation.beta/180)*this.size
-        this.label.transform(x, y, 0, 0, 0)
-        
     }
 
     setSize(size)
@@ -62,63 +34,90 @@ class Ball{
     createDiv()
     {
         this.div = document.createElement("DIV")
-        this.div.setAttribute("class", "ball")
-    }
-
-
-
-    addLabel(text="")
-    {
-        if(this.div == null)
-            throw Error("Unable to add label. this.div is not defined.")
-        this.label = new Label(text, this.size, this.size)
-        this.div.innerHTML = ""
-        this.div.appendChild(this.label.div)
     }
 
 }
 
-class Label{
-    constructor(text, size, position)
-    {
-        this.createDiv()
-        this.setText(text)
-        this.setSize(size)
-        this.setPosition(position, position)
-    }
 
-    transform(x, y, alpha, beta, gamma)
+class Ball extends Circle{
+    constructor(size, color ,x, y, board)
     {
-        this.div.style.transform = `matrix(${Math.cos(Math.PI*gamma/360)+0.3}, 0, ${-Math.sin(Math.PI*gamma/90)*Math.sin(Math.PI*beta/90)*0.35}, ${Math.cos(Math.PI*beta/360)+0.3}, ${x}, ${y})`
-    }
-
-    setPosition(x, y)
-    {
-        this.div.style.top = y-this.size/2+"px"
-        this.div.style.left = x-this.size/2+"px"
+        super(size, color, x, y, board)
+        this.speed = {x: 0, y: 0}
     }
 
 
-    setText(text)
+    moveTo(x, y)
     {
-        this.text = text
-        this.div.textContent = text
+        this.setPosition(x, y)
     }
 
-    setSize(size)
+    moveBy(x, y)
     {
-        this.size = size
-        this.div.style.width = size+"px"
-        this.div.style.height = size+"px"
-        this.div.style.fontSize = size/2+"px"
+        let destinationPositionX = this.position.x+x
+        let destinationPositionY = this.position.y+y
+
+        if(destinationPositionX-this.size<0)
+        {
+            destinationPositionX = this.size
+            this.translateSpeed(-0.3, 1)
+        }
+            
+        if(destinationPositionX+this.size>this.board.size.width)
+        {
+            destinationPositionX = this.board.size.width - this.size
+            this.translateSpeed(-0.3, 1)
+        }
+
+        if(destinationPositionY-this.size<0)
+        {
+            destinationPositionY = this.size
+            this.translateSpeed(1, -0.3)
+        }
+            
+        if(destinationPositionY+this.size>this.board.size.height)
+        {
+            destinationPositionY = this.board.size.height - this.size
+            this.translateSpeed(1, -0.3)
+        }
+            
+        this.moveTo(destinationPositionX, destinationPositionY)
     }
 
-    createDiv(text, size)
+    translateSpeed(x, y)
+    {
+        this.speed.x *= x
+        this.speed.y *= y
+    }
+
+
+    update()
+    {
+        this.speed.x += Math.sin(this.board.Orientation.gamma) - this.speed.x/30
+        this.speed.y += Math.sin(this.board.Orientation.beta) - this.speed.y/30
+        this.moveBy(this.speed.x, this.speed.y)
+    }
+
+    distanceTo(x, y)
+    {
+        let deltaX = x - this.position.x
+        let deltaY = y - this.position.y
+        return Math.sqrt(Math.pow(deltaX , 2) + Math.pow(deltaY , 2)) - this.size
+    }
+
+
+    update()
+    {
+        this.speed.x += Math.sin(this.board.Orientation.gamma) - this.speed.x/30
+        this.speed.y += Math.sin(this.board.Orientation.beta) - this.speed.y/30
+        this.moveBy(this.speed.x, this.speed.y)
+    }
+
+    createDiv()
     {
         this.div = document.createElement("DIV")
-        this.div.setAttribute("class", "label")
+        this.div.setAttribute("class", "ball")
     }
-
-
-
 }
+
+
