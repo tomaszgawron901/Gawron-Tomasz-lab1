@@ -6,12 +6,47 @@ class Game{
             this.deviceOrientation = {beta: Math.PI*e.beta/180, gamma: Math.PI*e.gamma/180}
         })
         this.createBoard()
-        this.board.addBall(10, "blue", 100, 100)
-        this.board.addAim(200, 200)
-        this.start()
+        this.board.addBall(10, "blue", this.board.size.width/2, this.board.size.height/2)
+        this.gameTickInterval = 20
+        this.start(this.gameTickInterval)
         this.score = 0
-        this.hp = 5
+        this.hp = {current: 10, maximum: 20, add: function(value){
+            this.current += value
+            if(this.current> 20)
+                this.current = 20
+        }}
+        
 
+        this.aimSpawnFrequency = {
+            minimum:1000,
+            current: 3000,
+            decres: function(value){
+                this.current -= value
+                if(this.current<this.minimum)
+                {
+                    this.current = this.minimum
+                }
+        }}
+
+        this.timer = {value: 0, add: (time)=>{
+            if(this.timer.value < this.aimSpawnFrequency.minimum && this.timer.value + time >= this.aimSpawnFrequency.minimum)
+            {
+                this.addRandomAim()
+                this.aimSpawnFrequency.decres(80)
+            }
+                
+            this.timer.value  = (time+this.timer.value )%this.aimSpawnFrequency.current
+        }}
+
+    }
+
+    addRandomAim()
+    {   
+        let border = 50
+
+        let randomX = Math.random() * (this.board.size.width-border*2) + border
+        let randomY = Math.random() * (this.board.size.height-border*2) + border
+        this.board.addAim(randomX, randomY)
     }
 
 
@@ -23,8 +58,10 @@ class Game{
 
     update()
     {
-        if(this.hp<= 0)
+        if(this.hp.current<= 0)
             this.stop()
+        
+        this.timer.add(this.gameTickInterval)
 
         this.board.update(this.deviceOrientation)
 
@@ -36,27 +73,27 @@ class Game{
             }
         });
 
-        this.shrinkAims(0.2)
+        this.shrinkAims(0.15)
     }
 
     ballColidesWith(aim)
     {
         this.score += aim.size/Aim.initialSize
         aim.remove()
-        this.hp += 1
+        this.hp.add(1)
     }
 
     aimDisappeared(aim)
     {
         aim.remove()
-        this.hp -= 2
+        this.hp.add(-2)
     }
 
-    start()
+    start(interval)
     {
         this.gameInterval = setInterval(()=>{
             this.update()
-        }, 20)
+        }, interval)
     }
 
     stop()

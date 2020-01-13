@@ -1,5 +1,5 @@
 class Aim extends Circle {
-    static initialSize = 35
+    static initialSize = 40
 
     constructor(x, y, board)
     {
