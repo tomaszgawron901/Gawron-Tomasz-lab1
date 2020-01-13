@@ -1,56 +1,72 @@
+body{
+  background: black;
+  overflow: hidden;
+}
+
 .ball {
-    display: block;
-    border-radius: 50%;
-    position: absolute;
-    margin: 0;
-    /*overflow: hidden;*/
-  }
-  .ball::after {
-    content: "";
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 15%);
-    transform: skewX(-20deg);
-    filter: blur(3px);
-  }
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  margin: 0;
+  /*overflow: hidden;*/
+}
+.ball::after {
+  content: "";
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 15%);
+  transform: skewX(-20deg);
+  filter: blur(3px);
+}
 
-  .ball::before {
-    content: "";
-    width: inherit;
-    height: inherit;
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 20%,rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
-  }
-
-  .ball .label{
-    border-radius: 50%;
-    position: relative;
-    background: white;
-    border: solid black 1px;
+.ball::before {
+  content: "";
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 20%,rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
+}
 
 
-    font-family: Arial, Helvetica, sans-serif;
 
-    display: flex;
-    justify-content: center;
-    align-items: center
-  }
+.aim{
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  margin: 0;
+  border: solid black 1px;
+}
 
+.board{
+  display: block;
+  border: grey solid 2px;
+  background: white;
+  overflow: hidden;
+}
 
-    .aim{
-      display: block;
-      border-radius: 50%;
-      position: absolute;
-      margin: 0;
-      border: solid black 1px;
-    }
+#interface{
+  height: 40px;
+  width: 100%;
+  margin-top: 10px;
+  background: white;
+  display: flex;
+  flex-direction: row;
+}
 
-  .board{
-    display: block;
-    border: solid black 2px;
-  }
+#interface div{
+  height: 100%;
+  width: 33%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px; 
+}
+
+#newGameBTN{
+  width: 33%;
+}
+

@@ -1,3 +1,8 @@
+const score = document.getElementById("score")
+const hp = document.getElementById("hp")
+const newGameBTN = document.getElementById("newGameBTN")
+
+
 class Game{
     constructor()
     {
@@ -5,16 +10,24 @@ class Game{
         window.addEventListener("deviceorientation", (e)=>{
             this.deviceOrientation = {beta: Math.PI*e.beta/180, gamma: Math.PI*e.gamma/180}
         })
-        this.createBoard()
-        this.board.addBall(10, "blue", this.board.size.width/2, this.board.size.height/2)
+        this.createBoard(window.innerWidth-20, innerHeight-70)
+        this.board.addBall(10, `rgb(${Math.random()*255} , ${Math.random()*255}, ${Math.random()*255})`, this.board.size.width/2, this.board.size.height/2)
         this.gameTickInterval = 20
         this.start(this.gameTickInterval)
-        this.score = 0
+        this.score = {current:0, add: function(value)
+        {
+            this.current += value
+            score.innerHTML = `SCORE: ${Number((this.current).toFixed(1))}`
+        }}
         this.hp = {current: 10, maximum: 20, add: function(value){
             this.current += value
-            if(this.current> 20)
-                this.current = 20
+            if(this.current> this.maximum)
+                this.current = this.maximum
+            hp.innerHTML= `HEALTH: ${this.current}`
         }}
+
+        this.score.add(0)
+        this.hp.add(0)
         
 
         this.aimSpawnFrequency = {
@@ -50,10 +63,10 @@ class Game{
     }
 
 
-    createBoard()
+    createBoard(width, height)
     {
-        this.board = new Board(800, 800)
-        document.body.appendChild(this.board.div)
+        this.board = new Board(width, height)
+        document.getElementById("board").appendChild(this.board.div)
     }
 
     update()
@@ -78,7 +91,7 @@ class Game{
 
     ballColidesWith(aim)
     {
-        this.score += aim.size/Aim.initialSize
+        this.score.add(aim.size/Aim.initialSize)
         aim.remove()
         this.hp.add(1)
     }
@@ -112,8 +125,15 @@ class Game{
         });
 
     }
-
-
 }
 
-new Game()
+
+let game = new Game()
+newGameBTN.addEventListener("click", newGame)
+function newGame()
+{
+    if(game != null)
+        game.stop()
+        document.getElementById("board").innerHTML = ""
+    game = new Game()
+}
