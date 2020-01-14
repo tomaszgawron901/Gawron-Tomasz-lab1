@@ -36,9 +36,9 @@ body{
 
 .aim{
   display: block;
+  margin: 0;
   border-radius: 50%;
   position: absolute;
-  margin: 0;
   border: solid black 1px;
 }
 

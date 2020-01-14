@@ -53,7 +53,7 @@ class Ball extends Circle{
     }
 
     moveBy(x, y)
-    {
+    {        
         let destinationPositionX = this.position.x+x
         let destinationPositionY = this.position.y+y
 
@@ -100,8 +100,8 @@ class Ball extends Circle{
 
     distanceTo(x, y)
     {
-        let deltaX = x - this.position.x
-        let deltaY = y - this.position.y
+        let deltaX = x - this.position.x - this.size
+        let deltaY = y - this.position.y - this.size
         return Math.sqrt(Math.pow(deltaX , 2) + Math.pow(deltaY , 2)) - this.size
     }
 

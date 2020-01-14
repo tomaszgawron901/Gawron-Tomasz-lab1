@@ -57,8 +57,8 @@ class Game{
     {   
         let border = 50
 
-        let randomX = Math.random() * (this.board.size.width-border*2) + border
-        let randomY = Math.random() * (this.board.size.height-border*2) + border
+        let randomX = Math.random() * (this.board.size.width-border*2-Aim.initialSize*2) + border
+        let randomY = Math.random() * (this.board.size.height-border*2-Aim.initialSize*2) + border
         this.board.addAim(randomX, randomY)
     }
 
@@ -78,15 +78,18 @@ class Game{
 
         this.board.update(this.deviceOrientation)
 
+
+        this.shrinkAims(0.15)
+
         this.board.aims.forEach(aim => {
-            if(this.board.ball.distanceTo(aim.position.x, aim.position.y)<= aim.size)
+            if(this.board.ball.distanceTo(aim.position.x+aim.size, aim.position.y+aim.size)<= aim.size)
             {
                 this.ballColidesWith(aim)
                 return
             }
         });
 
-        this.shrinkAims(0.15)
+
     }
 
     ballColidesWith(aim)
