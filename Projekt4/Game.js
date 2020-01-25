@@ -4,6 +4,8 @@ const newGameBTN = document.getElementById("newGameBTN")
 
 
 class Game{
+    static defaultBallSize = 10
+
     constructor()
     {
         this.deviceOrientation = {beta: 0, gamma: 0}
@@ -11,7 +13,8 @@ class Game{
             this.deviceOrientation = {beta: Math.PI*e.beta/180, gamma: Math.PI*e.gamma/180}
         })
         this.createBoard(window.innerWidth-20, innerHeight-70)
-        this.board.addBall(10, `rgb(${Math.random()*255} , ${Math.random()*255}, ${Math.random()*255})`, this.board.size.width/2, this.board.size.height/2)
+        this.board.addBall(Game.defaultBallSize, "red", this.board.size.width/2, this.board.size.height/2)
+        this.board.addBall(Game.defaultBallSize, "black", 500, this.board.size.height/2)
         this.gameTickInterval = 20
         this.start(this.gameTickInterval)
         this.score = {current:0, add: function(value)
@@ -76,20 +79,10 @@ class Game{
         
         this.timer.add(this.gameTickInterval)
 
-        this.board.update(this.deviceOrientation)
+        this.board.update(this.deviceOrientation, this.gameTickInterval/1000)
 
 
         this.shrinkAims(0.15)
-
-        this.board.aims.forEach(aim => {
-            if(this.board.ball.distanceTo(aim.position.x+aim.size, aim.position.y+aim.size)<= aim.size)
-            {
-                this.ballColidesWith(aim)
-                return
-            }
-        });
-
-
     }
 
     ballColidesWith(aim)
