@@ -21,8 +21,8 @@ class Circle{
     setPosition(x, y)
     {
         this.position = {x: x, y: y}
-        this.div.style.top = y+this.size+"px"
-        this.div.style.left = x+this.size+"px"
+        this.div.style.top = y+"px"
+        this.div.style.left = x+"px"
     }
 
     setColor(color)
@@ -53,8 +53,35 @@ class Ball extends Circle{
     }
 
     moveBy(x, y)
-    {
-        this.moveTo(this.position.x+x, this.position.y+y)
+    {        
+        let destinationPositionX = this.position.x+x
+        let destinationPositionY = this.position.y+y
+
+        if(destinationPositionX-this.size<0)
+        {
+            destinationPositionX = this.size
+            this.translateSpeed(-0.3, 1)
+        }
+            
+        if(destinationPositionX+this.size>this.board.size.width)
+        {
+            destinationPositionX = this.board.size.width - this.size
+            this.translateSpeed(-0.3, 1)
+        }
+
+        if(destinationPositionY-this.size<0)
+        {
+            destinationPositionY = this.size
+            this.translateSpeed(1, -0.3)
+        }
+            
+        if(destinationPositionY+this.size>this.board.size.height)
+        {
+            destinationPositionY = this.board.size.height - this.size
+            this.translateSpeed(1, -0.3)
+        }
+            
+        this.moveTo(destinationPositionX, destinationPositionY)
     }
 
     translateSpeed(x, y)
@@ -63,11 +90,27 @@ class Ball extends Circle{
         this.speed.y *= y
     }
 
+
+    update()
+    {
+        this.speed.x += Math.sin(this.board.Orientation.gamma) - this.speed.x/30
+        this.speed.y += Math.sin(this.board.Orientation.beta) - this.speed.y/30
+        this.moveBy(this.speed.x, this.speed.y)
+    }
+
     distanceTo(x, y)
     {
         let deltaX = x - this.position.x - this.size
         let deltaY = y - this.position.y - this.size
         return Math.sqrt(Math.pow(deltaX , 2) + Math.pow(deltaY , 2)) - this.size
+    }
+
+
+    update()
+    {
+        this.speed.x += Math.sin(this.board.Orientation.gamma) - this.speed.x/30
+        this.speed.y += Math.sin(this.board.Orientation.beta) - this.speed.y/30
+        this.moveBy(this.speed.x, this.speed.y)
     }
 
     createDiv()

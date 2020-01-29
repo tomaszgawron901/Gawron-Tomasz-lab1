@@ -32,6 +32,16 @@ class Line{
         return new Line(a, -1, c)
     }
 
+    static getAngleBetween(line1, line2)
+    {
+        return Math.atan(Math.abs( (line1.a - line2.a)/(1 + line1.a*line2.a) ))
+    }
+
+    getAngle()
+    {
+        Math.atan(-this.a/this.b)
+    }
+
     isVertical()
     {
         return this.b == 0
@@ -68,8 +78,7 @@ class Line{
 
     getPerpendicularLineInPoint(point)// TOCHECK
     {
-        let newC = -((this.a+this.b)*point.x + (this.b-this.a)*point.y + this.c)
-        return new Line(this.b, -this.a, newC)
+        return new Line(this.b, -this.a, this.a*point.y-this.b*point.x)
     }
 
     getPointForX(x)// May throw an Exception.
@@ -97,7 +106,7 @@ class Line{
 
             }else{
                 let x = -c/a
-                return this.getPointforX(x)
+                return this.getPointForX(x)
             }
 
         }else{
@@ -106,10 +115,86 @@ class Line{
         }
     }
 
+    distanceTo(point)
+    {
+        return distanceBetween(point, this.getCommonPoint(this.getPerpendicularLineInPoint(point)))
+    }
+}
 
+class horizontalWall{
+    constructor(y, xStart, xEnd){
+        this.y = y
+        if(xStart > xEnd)
+        {
+            this.xStart = xEnd
+            this.xEnd = xStart
+        }
+        else{
+            this.xStart = xStart
+            this.xEnd = xEnd
+        }
+        this.line = new Line(0, 1, -y)
+    }
+
+    contains(point)
+    {
+        return point.y == this.y && isBetween(point.x, this.xStart, this.xEnd)
+    }
+
+    getWallMovedHorizontaly(distance)
+    {
+        return new horizontalWall(this.y, this.xStart+distance, this.xEnd+distance)
+    }
+
+    getWallMovedVerticaly(distance)
+    {
+        return new horizontalWall(this.y+distance, this.xStart, this.xEnd)
+    }
+
+    getEndPoints()
+    {
+        let endPoints = new Array()
+        endPoints.push({x: this.xStart, y: this.y})
+        endPoints.push({x: this.xEnd, y: this.y})
+        return endPoints
+    }
 
 }
 
-let nl1 = new Line(2, -1, 0)
-let nl2 = new Line(-3, -3, 4)
-let p = new Line(2, -1, 0).containsPoint({x: 2, y: 4})
+class verticalWall{
+    constructor(x, yStart, yEnd){
+        this.x = x
+        if(yStart > yEnd){
+            this.yStart = yEnd
+            this.yEnd = yStart
+        }
+        else{
+            this.yStart = yStart
+            this.yEnd = yEnd
+        }
+        this.line = new Line(1, 0, -x)
+    }
+
+    contains(point)
+    {
+        return point.x == this.x && isBetween(point.y, this.yStart, this.yEnd)
+    }
+
+    getWallMovedHorizontaly(distance)
+    {
+        return new verticalWall(this.x+distance, this.yStart, this.yEnd)
+    }
+
+    getWallMovedVerticaly(distance)
+    {
+        return new verticalWall(this.x, this.yStart+distance, this.yEnd+distance)
+    }
+
+    getEndPoints()
+    {
+        let endPoints = new Array()
+        endPoints.push({x: this.x, y: this.yStart})
+        endPoints.push({x: this.x, y: this.yEnd})
+        return endPoints
+    }
+}
