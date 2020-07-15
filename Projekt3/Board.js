@@ -133,12 +133,20 @@ class Board{
     loadNotes()
     {
         let notes = localStorage.getItem('notes')
-        if(notes != null && notes.length!= 0)
+        if(notes != null)
         {
             notes = JSON.parse(notes)
-            notes.forEach(note => {
-                this.addNote(Note.CloneNote(note))
-            });
+            if(notes.length!= 0)
+            {
+                notes.forEach(note => {
+                    this.addNote(Note.CloneNote(note))
+                });
+            }else{
+                let info = "- To add new note double-click the background.\n- To move note grab header of the note and move it to chosen position.\n- To edit a note double-click it. In edit view you can change title, text, color of the note. You can aslo set reminder and mark note as 'Important'.\n- To delete note grab a note fold and move it outside of the note.\n- You can sort notes using drop-down lists in upper-left corner.";
+                let style = {position: {x:0, y:20}, color: [255, 200, 200], zIndex: 0, width: 300, height: 200}
+                let infoNote = new Note("Usage", info, style);
+                this.addNote(infoNote);
+            }
         }
         this.notesArray.forEach( divNote =>{
             new NoteReminder(divNote).manageNotifications()
