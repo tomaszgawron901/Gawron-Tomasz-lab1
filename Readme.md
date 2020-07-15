@@ -1,4 +1,4 @@
-# JavaScript programing project
+# JavaScript programing projects
 
 ## Project 1 - SoundKit
 With help of this app using computer keyboard you can record and play sounds.
