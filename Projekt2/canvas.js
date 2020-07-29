@@ -7,6 +7,7 @@ class PhotoShop
         this.currentBrush = null
         this.currentModification = null
         this.newCanvas(900, 600)
+        this.openImageBySrc("testIMG.jpg");
     }
 
     copyCanvasData() {
@@ -38,16 +39,21 @@ class PhotoShop
         if(e.target.files.length != 0)
         {
             let selectedFile = e.target.files[0]
-            let img = new Image(this.myCanvas.clientWidth, this.myCanvas.clientHeight)
             let reader = new FileReader()
             reader.onload = (e)=>{
-                img.src = e.target.result
+                this.openImageBySrc(e.target.result);
             }
             reader.readAsDataURL(selectedFile)
-            img.addEventListener('load', () =>{
-                this.ctx.drawImage(img, 0, 0, myCanvas.clientWidth, myCanvas.clientHeight)
-            })
         }
+    }
+
+    openImageBySrc(src){
+        this.cancelModification();
+        let img = new Image(this.myCanvas.clientWidth, this.myCanvas.clientHeight);
+        img.src = src;
+        img.addEventListener('load', () =>{
+            this.ctx.drawImage(img, 0, 0, myCanvas.clientWidth, myCanvas.clientHeight)
+        })
     }
 
     newCanvas(width, height)
