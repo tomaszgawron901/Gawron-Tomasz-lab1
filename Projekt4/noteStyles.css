@@ -39,7 +39,7 @@ body{
   margin: 0;
   border-radius: 50%;
   position: absolute;
-  border: solid black 1px;
+  border: solid black 1;
 }
 
 .board{
